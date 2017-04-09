@@ -1,12 +1,16 @@
 
 `mgrs` : Convert 'MGRS' Coordinates To and From Other Coordiante Systems
 
-NOTE: These will be vectorized soon.
-
 The following functions are implemented:
 
 -   `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
 -   `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
+
+### TODO
+
+-   Vectorize ALL THE THINGS
+-   Add in support for the other MGRS conversion thingys
+-   Tests (etc)
 
 ### Installation
 
