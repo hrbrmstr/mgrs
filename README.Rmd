@@ -11,8 +11,11 @@ The following functions are implemented:
 
 ### TODO
 
+- Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
 - Vectorize ALL THE THINGS
 - Add in support for the other MGRS conversion thingys
+- Error checking
+- Precision validation
 - Tests (etc)
 
 ### Installation
