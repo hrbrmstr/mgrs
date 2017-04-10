@@ -18,10 +18,10 @@ The following functions are implemented:
 
 -   Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
 -   Vectorize ALL THE THINGS
--   Add in support for the other MGRS conversion thingys
--   Error checking
+-   <strike>Add in support for the other MGRS conversion thingys</strike>
+-   More error checking (basic checking is done)
 -   Precision validation
--   Tests (etc)
+-   More tests (basic testing is done)
 
 ### Installation
 
@@ -104,3 +104,27 @@ mgrs_to_ups("ZGC2677330125")
 
     ##            mgrs hemisphere easting northing
     ## 1 ZGC2677330125          N 2426773  1530125
+
+### Test Results
+
+``` r
+library(mgrs)
+library(testthat)
+
+date()
+```
+
+    ## [1] "Sun Apr  9 22:43:31 2017"
+
+``` r
+test_dir("tests/")
+```
+
+    ## testthat results ========================================================================================================
+    ## OK: 10 SKIPPED: 0 FAILED: 0
+    ## 
+    ## DONE ===================================================================================================================
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

@@ -22,10 +22,20 @@ NumericVector mgrs_to_latlng(std::string MGRS, bool degrees = true) {
 
   ret = Convert_MGRS_To_Geodetic((char *)MGRS.c_str(), &lat, &lng);
 
-  NumericVector coords = NumericVector::create(
-    _["lat"] = degrees ? lat * 180.0/PI : lat,
-    _["lng"] = degrees ? lng * 180.0/PI : lng
-  );
+  NumericVector coords;
+
+  if (ret != UTM_NO_ERROR) {
+    Rcpp::warning("Error converting MGRS to latitude/longitude");
+    coords = NumericVector::create(
+      _["lat"] = NA_REAL,
+      _["lng"] = NA_REAL
+    );
+  } else {
+    coords = NumericVector::create(
+      _["lat"] = degrees ? lat * 180.0/PI : lat,
+      _["lng"] = degrees ? lng * 180.0/PI : lng
+    );
+  }
 
   return(coords);
 
@@ -41,8 +51,8 @@ NumericVector mgrs_to_latlng(std::string MGRS, bool degrees = true) {
 //' @examples
 //' latlng_to_mgrs(42, -93)
 // [[Rcpp::export]]
-std::string latlng_to_mgrs(double latitude, double longitude,
-                           bool degrees = true, int precision = 5) {
+String latlng_to_mgrs(double latitude, double longitude,
+                      bool degrees = true, int precision = 5) {
 
   if (degrees) {
     latitude *= PI / 180.0;
@@ -54,7 +64,12 @@ std::string latlng_to_mgrs(double latitude, double longitude,
 
   ret = Convert_Geodetic_To_MGRS(latitude, longitude, precision, buf);
 
-  return(std::string(buf));
+  if (ret != MGRS_NO_ERROR) {
+    Rcpp::warning("Error conveting latitude/longitudfe to MGRS");
+    return(NA_STRING);
+  } else {
+    return(std::string(buf));
+  }
 
 }
 
@@ -69,9 +84,9 @@ std::string latlng_to_mgrs(double latitude, double longitude,
 //' @examples
 //' utm_to_mgrs(48, "N", 377299, 1483035)
 // [[Rcpp::export]]
-std::string utm_to_mgrs(long zone, std::string hemisphere,
-                        double easting, double northing,
-                        long precision = 5) {
+String utm_to_mgrs(long zone, std::string hemisphere,
+                   double easting, double northing,
+                   long precision = 5) {
 
   char buf[80];
   long ret;
@@ -79,7 +94,12 @@ std::string utm_to_mgrs(long zone, std::string hemisphere,
   ret = Convert_UTM_To_MGRS(zone, hemisphere.c_str()[0], easting, northing,
                             precision, (char *)&buf);
 
-  return(std::string(buf));
+  if (ret != UTM_NO_ERROR) {
+    Rcpp::warning("Error converting UTM to MGRS");
+    return(NA_STRING);
+  } else {
+    return(std::string(buf));
+  }
 
 }
 
@@ -101,12 +121,23 @@ DataFrame mgrs_to_utm(std::string mgrs_string) {
 
   ret = Convert_MGRS_To_UTM((char *)mgrs_string.c_str(), &zone, h_buf, &easting, &northing);
 
-  return(DataFrame::create(_["mgrs"] = mgrs_string,
-                           _["zone"] = zone,
-                           _["hemisphere"] = std::string(h_buf),
-                           _["easting"] = easting,
-                           _["northing"] = northing,
-                           _["stringsAsFactors"] = false));
+  if (ret != MGRS_NO_ERROR) {
+    Rcpp::warning("Error converting MGRS to UGM");
+    return(DataFrame::create(_["mgrs"] = mgrs_string,
+                             _["zone"] = NA_INTEGER,
+                             _["hemisphere"] = NA_STRING,
+                             _["easting"] = NA_REAL,
+                             _["northing"] = NA_REAL,
+                             _["stringsAsFactors"] = false));
+  } else {
+    h_buf[1] = '\0';
+    return(DataFrame::create(_["mgrs"] = mgrs_string,
+                             _["zone"] = zone,
+                             _["hemisphere"] = std::string(h_buf),
+                             _["easting"] = easting,
+                             _["northing"] = northing,
+                             _["stringsAsFactors"] = false));
+  }
 }
 
 //' Convert UPS to MGRS
@@ -119,9 +150,9 @@ DataFrame mgrs_to_utm(std::string mgrs_string) {
 //' @examples
 //' ups_to_mgrs("N", 2426773, 1530125)
 // [[Rcpp::export]]
-std::string ups_to_mgrs(std::string hemisphere,
-                        double easting, double northing,
-                        long precision = 5) {
+String ups_to_mgrs(std::string hemisphere,
+                   double easting, double northing,
+                   long precision = 5) {
 
   char buf[80];
   long ret;
@@ -129,7 +160,12 @@ std::string ups_to_mgrs(std::string hemisphere,
   ret = Convert_UPS_To_MGRS(hemisphere.c_str()[0], easting, northing,
                             precision, (char *)&buf);
 
-  return(std::string(buf));
+  if (ret != UPS_NO_ERROR) {
+    Rcpp::warning("Error converting UPS to MGRS");
+    return(NA_STRING);
+  } else {
+    return(std::string(buf));
+  }
 
 }
 
@@ -150,11 +186,21 @@ DataFrame mgrs_to_ups(std::string mgrs_string) {
 
   ret = Convert_MGRS_To_UPS((char *)mgrs_string.c_str(), h_buf, &easting, &northing);
 
-  return(DataFrame::create(_["mgrs"] = mgrs_string,
-                           _["hemisphere"] = std::string(h_buf),
-                           _["easting"] = easting,
-                           _["northing"] = northing,
-                           _["stringsAsFactors"] = false));
+  if (ret != MGRS_NO_ERROR) {
+    Rcpp::warning("Error converting MGRS to UPS");
+    return(DataFrame::create(_["mgrs"] = mgrs_string,
+                             _["hemisphere"] = NA_STRING,
+                             _["easting"] = NA_REAL,
+                             _["northing"] = NA_REAL,
+                             _["stringsAsFactors"] = false));
+  } else {
+    h_buf[1] = '\0';
+    return(DataFrame::create(_["mgrs"] = mgrs_string,
+                             _["hemisphere"] = std::string(h_buf),
+                             _["easting"] = easting,
+                             _["northing"] = northing,
+                             _["stringsAsFactors"] = false));
+  }
 }
 
 //' Convert UPS to Latitude/Longitude
@@ -176,10 +222,20 @@ NumericVector ups_to_latlng(std::string hemisphere,
 
   ret = Convert_UPS_To_Geodetic(hemisphere.c_str()[0], easting, northing, &lat, &lng);
 
-  NumericVector coords = NumericVector::create(
-    _["lat"] = degrees ? lat * 180.0/PI : lat,
-    _["lng"] = degrees ? lng * 180.0/PI : lng
-  );
+  NumericVector coords;
+
+  if (ret != UPS_NO_ERROR) {
+    Rcpp::warning("Error converting UPS to latitude/longitude");
+    coords = NumericVector::create(
+      _["lat"] = NA_REAL,
+      _["lng"] = NA_REAL
+    );
+  } else {
+    coords = NumericVector::create(
+      _["lat"] = degrees ? lat * 180.0/PI : lat,
+      _["lng"] = degrees ? lng * 180.0/PI : lng
+    );
+  }
 
   return(coords);
 
@@ -203,12 +259,22 @@ NumericVector utm_to_latlng(long zone, std::string hemisphere,
   double lat, lng;
   long ret;
 
-  ret = Convert_UTM_To_Geodetic(hemisphere.c_str()[0], zone, easting, northing, &lat, &lng);
+  ret = Convert_UTM_To_Geodetic(zone, hemisphere.c_str()[0], easting, northing, &lat, &lng);
 
-  NumericVector coords = NumericVector::create(
-    _["lat"] = degrees ? lat * 180.0/PI : lat,
-    _["lng"] = degrees ? lng * 180.0/PI : lng
-  );
+  NumericVector coords;
+
+  if (ret != UTM_NO_ERROR) {
+    Rcpp::warning("Error converting UTM to latitude/longitude");
+    coords = NumericVector::create(
+      _["lat"] = NA_REAL,
+      _["lng"] = NA_REAL
+    );
+  } else {
+    coords = NumericVector::create(
+      _["lat"] = degrees ? lat * 180.0/PI : lat,
+      _["lng"] = degrees ? lng * 180.0/PI : lng
+    );
+  }
 
   return(coords);
 
