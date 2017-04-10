@@ -43,7 +43,7 @@ utm_to_mgrs <- function(zone, hemisphere, easting, northing, precision = 5L) {
 #' Convert MGRS to UTM
 #'
 #' @md
-#' @param MGRS an MGRS string
+#' @param mgrs_string an MGRS string
 #' @return `data.frame`
 #' @export
 #' @examples
@@ -68,7 +68,7 @@ ups_to_mgrs <- function(hemisphere, easting, northing, precision = 5L) {
 #' Convert MGRS to UPS
 #'
 #' @md
-#' @param MGRS an MGRS string
+#' @param mgrs_string an MGRS string
 #' @return `data.frame`
 #' @export
 #' @examples
