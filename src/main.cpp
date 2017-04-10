@@ -9,35 +9,46 @@ using namespace Rcpp;
 //' Convert an MGRS string to latitude/longitude
 //'
 //' @md
+//' @note vectorized
 //' @param MGRS an MGRS string
 //' @param degrees convert to degrees? Default: `TRUE`
 //' @export
+//' @return `data.frame`
 //' @examples
 //' mgrs_to_latlng("15TWG0000049776")
 // [[Rcpp::export]]
-NumericVector mgrs_to_latlng(std::string MGRS, bool degrees = true) {
+DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees = true) {
 
   double lat, lng;
-  long ret;
+  long ret, err_ct = 0;
+  NumericVector lat_vec(MGRS.size());
+  NumericVector lng_vec(MGRS.size());
 
-  ret = Convert_MGRS_To_Geodetic((char *)MGRS.c_str(), &lat, &lng);
+  for (unsigned int i=0; i<MGRS.size(); i++) {
 
-  NumericVector coords;
+    if ((i % 10000) == 0) Rcpp::checkUserInterrupt();
 
-  if (ret != UTM_NO_ERROR) {
-    Rcpp::warning("Error converting MGRS to latitude/longitude");
-    coords = NumericVector::create(
-      _["lat"] = NA_REAL,
-      _["lng"] = NA_REAL
-    );
-  } else {
-    coords = NumericVector::create(
-      _["lat"] = degrees ? lat * 180.0/PI : lat,
-      _["lng"] = degrees ? lng * 180.0/PI : lng
-    );
+    ret = Convert_MGRS_To_Geodetic((char *)MGRS[i].c_str(), &lat, &lng);
+
+    if (ret != UTM_NO_ERROR) {
+      err_ct += 1;
+      lat_vec[i] = NA_REAL;
+      lng_vec[i] = NA_REAL;
+    } else {
+      lat_vec[i] = degrees ? lat * 180.0/PI : lat;
+      lng_vec[i] = degrees ? lng * 180.0/PI : lng;
+    }
+
   }
 
-  return(coords);
+  if (err_ct > 0) {
+    Rcpp::warning("One or more errors encounterd while converting %d MGRS input strings");
+  }
+
+  return(DataFrame::create(_["mgrs"] = MGRS,
+                           _["lat"] = lat_vec,
+                           _["lng"] = lng_vec,
+                           _["stringsAsFactors"] = false));
 
 }
 
