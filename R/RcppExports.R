@@ -4,9 +4,11 @@
 #' Convert an MGRS string to latitude/longitude
 #'
 #' @md
+#' @note vectorized
 #' @param MGRS an MGRS string
 #' @param degrees convert to degrees? Default: `TRUE`
 #' @export
+#' @return `data.frame`
 #' @examples
 #' mgrs_to_latlng("15TWG0000049776")
 mgrs_to_latlng <- function(MGRS, degrees = TRUE) {

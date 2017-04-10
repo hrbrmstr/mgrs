@@ -11,8 +11,14 @@ mgrs_to_latlng(MGRS, degrees = TRUE)
 
 \item{degrees}{convert to degrees? Default: \code{TRUE}}
 }
+\value{
+\code{data.frame}
+}
 \description{
 Convert an MGRS string to latitude/longitude
+}
+\note{
+vectorized
 }
 \examples{
 mgrs_to_latlng("15TWG0000049776")

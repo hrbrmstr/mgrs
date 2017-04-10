@@ -2,20 +2,27 @@ context("coordinate conversion")
 test_that("we can convert things", {
 
   expect_equal(mgrs_to_latlng("33UXP04"),
-               structure(c(48.2053484084679, 16.3459269599006),
-                         .Names = c("lat", "lng")))
+               structure(list(mgrs = "33UXP04", lat = 48.2053484084679,
+                              lng = 16.3459269599006),
+                         .Names = c("mgrs", "lat", "lng"),
+                         row.names = c(NA, -1L), class = "data.frame"))
 
   expect_equal(latlng_to_mgrs(48.20535, 16.34593), "33UXP0000040000")
 
   expect_equal(mgrs_to_latlng("33UXP0500444996"),
-               structure(c(48.2494747750754, 16.4144942785798),
-                         .Names = c("lat", "lng")))
+               structure(list(mgrs = "33UXP0500444996", lat = 48.2494747750754,
+                              lng = 16.4144942785798),
+                         .Names = c("mgrs", "lat", "lng"), row.names = c(NA, -1L),
+                         class = "data.frame"))
 
   expect_equal(latlng_to_mgrs(48.24948, 16.41449), "33UXP0500344996")
 
-  expect_equal(mgrs_to_latlng("24XWT783908"),
-               structure(c(83.6273817605432, -32.6687891809823),
-                         .Names = c("lat", "lng")))
+  expect_equal(mgrs_to_latlng(c("24XWT783908", "33UXP0500444996")),
+               structure(list(mgrs = c("24XWT783908", "33UXP0500444996"),
+                              lat = c(83.6273817605432, 48.2494747750754),
+                              lng = c(-32.6687891809823, 16.4144942785798)),
+                         .Names = c("mgrs", "lat", "lng"),
+                         row.names = c(NA, -2L), class = "data.frame"))
 
   expect_equal(latlng_to_mgrs(83.62738, -32.66879), "25XEN0410486507")
 

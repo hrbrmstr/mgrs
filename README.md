@@ -10,7 +10,7 @@ Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luo
 The following functions are implemented:
 
 -   `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
--   `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
+-   `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude **(now returns a `data.frame`)**
 -   `mgrs_to_ups`: Convert MGRS to UPS
 -   `mgrs_to_utm`: Convert MGRS to UTM
 -   `ups_to_mgrs`: Convert UPS to MGRS
@@ -46,8 +46,8 @@ packageVersion("mgrs")
 mgrs_to_latlng("33UXP04")
 ```
 
-    ##      lat      lng 
-    ## 48.20535 16.34593
+    ##      mgrs      lat      lng
+    ## 1 33UXP04 48.20535 16.34593
 
 ``` r
 latlng_to_mgrs(48.20535, 16.34593)
@@ -59,8 +59,8 @@ latlng_to_mgrs(48.20535, 16.34593)
 mgrs_to_latlng("33UXP0500444996")
 ```
 
-    ##      lat      lng 
-    ## 48.24947 16.41449
+    ##              mgrs      lat      lng
+    ## 1 33UXP0500444996 48.24947 16.41449
 
 ``` r
 latlng_to_mgrs(48.24948, 16.41449)
@@ -72,8 +72,8 @@ latlng_to_mgrs(48.24948, 16.41449)
 mgrs_to_latlng("24XWT783908")
 ```
 
-    ##       lat       lng 
-    ##  83.62738 -32.66879
+    ##          mgrs      lat       lng
+    ## 1 24XWT783908 83.62738 -32.66879
 
 ``` r
 latlng_to_mgrs(83.62738, -32.66879)
@@ -125,9 +125,7 @@ c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58",
 "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
 "16TBQ64", "13TCH16") -> mgrs_state_centers
 
-map(mgrs_state_centers, mgrs_to_latlng) %>% 
-  map(as.list) %>% 
-  map_df(flatten_df) %>% 
+mgrs_to_latlng(mgrs_state_centers) %>% 
   ggplot(aes(lng, lat)) +
   geom_point(shape=22, size=2, color="white", fill="black") +
   coord_map("polyconic")
@@ -153,7 +151,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Apr 10 00:04:53 2017"
+    ## [1] "Mon Apr 10 13:28:40 2017"
 
 ``` r
 test_dir("tests/")

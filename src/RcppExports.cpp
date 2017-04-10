@@ -6,12 +6,12 @@
 using namespace Rcpp;
 
 // mgrs_to_latlng
-NumericVector mgrs_to_latlng(std::string MGRS, bool degrees);
+DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees);
 RcppExport SEXP mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type MGRS(MGRSSEXP);
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type MGRS(MGRSSEXP);
     Rcpp::traits::input_parameter< bool >::type degrees(degreesSEXP);
     rcpp_result_gen = Rcpp::wrap(mgrs_to_latlng(MGRS, degrees));
     return rcpp_result_gen;
