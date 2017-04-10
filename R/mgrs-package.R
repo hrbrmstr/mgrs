@@ -3,6 +3,6 @@
 #' @name mgrs
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @useDynLib mgrs
+#' @useDynLib mgrs, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 NULL

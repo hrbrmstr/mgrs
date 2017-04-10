@@ -106,7 +106,7 @@ String utm_to_mgrs(long zone, std::string hemisphere,
 //' Convert MGRS to UTM
 //'
 //' @md
-//' @param MGRS an MGRS string
+//' @param mgrs_string an MGRS string
 //' @return `data.frame`
 //' @export
 //' @examples
@@ -172,7 +172,7 @@ String ups_to_mgrs(std::string hemisphere,
 //' Convert MGRS to UPS
 //'
 //' @md
-//' @param MGRS an MGRS string
+//' @param mgrs_string an MGRS string
 //' @return `data.frame`
 //' @export
 //' @examples

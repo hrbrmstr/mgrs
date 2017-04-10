@@ -7,7 +7,7 @@
 mgrs_to_ups(mgrs_string)
 }
 \arguments{
-\item{MGRS}{an MGRS string}
+\item{mgrs_string}{an MGRS string}
 }
 \value{
 \code{data.frame}
