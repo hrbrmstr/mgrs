@@ -31,3 +31,83 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// utm_to_mgrs
+std::string utm_to_mgrs(long zone, std::string hemisphere, double easting, double northing, long precision);
+RcppExport SEXP mgrs_utm_to_mgrs(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< std::string >::type hemisphere(hemisphereSEXP);
+    Rcpp::traits::input_parameter< double >::type easting(eastingSEXP);
+    Rcpp::traits::input_parameter< double >::type northing(northingSEXP);
+    Rcpp::traits::input_parameter< long >::type precision(precisionSEXP);
+    rcpp_result_gen = Rcpp::wrap(utm_to_mgrs(zone, hemisphere, easting, northing, precision));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mgrs_to_utm
+DataFrame mgrs_to_utm(std::string mgrs_string);
+RcppExport SEXP mgrs_mgrs_to_utm(SEXP mgrs_stringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type mgrs_string(mgrs_stringSEXP);
+    rcpp_result_gen = Rcpp::wrap(mgrs_to_utm(mgrs_string));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ups_to_mgrs
+std::string ups_to_mgrs(std::string hemisphere, double easting, double northing, long precision);
+RcppExport SEXP mgrs_ups_to_mgrs(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type hemisphere(hemisphereSEXP);
+    Rcpp::traits::input_parameter< double >::type easting(eastingSEXP);
+    Rcpp::traits::input_parameter< double >::type northing(northingSEXP);
+    Rcpp::traits::input_parameter< long >::type precision(precisionSEXP);
+    rcpp_result_gen = Rcpp::wrap(ups_to_mgrs(hemisphere, easting, northing, precision));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mgrs_to_ups
+DataFrame mgrs_to_ups(std::string mgrs_string);
+RcppExport SEXP mgrs_mgrs_to_ups(SEXP mgrs_stringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type mgrs_string(mgrs_stringSEXP);
+    rcpp_result_gen = Rcpp::wrap(mgrs_to_ups(mgrs_string));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ups_to_latlng
+NumericVector ups_to_latlng(std::string hemisphere, double easting, double northing, bool degrees);
+RcppExport SEXP mgrs_ups_to_latlng(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type hemisphere(hemisphereSEXP);
+    Rcpp::traits::input_parameter< double >::type easting(eastingSEXP);
+    Rcpp::traits::input_parameter< double >::type northing(northingSEXP);
+    Rcpp::traits::input_parameter< bool >::type degrees(degreesSEXP);
+    rcpp_result_gen = Rcpp::wrap(ups_to_latlng(hemisphere, easting, northing, degrees));
+    return rcpp_result_gen;
+END_RCPP
+}
+// utm_to_latlng
+NumericVector utm_to_latlng(long zone, std::string hemisphere, double easting, double northing, bool degrees);
+RcppExport SEXP mgrs_utm_to_latlng(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< std::string >::type hemisphere(hemisphereSEXP);
+    Rcpp::traits::input_parameter< double >::type easting(eastingSEXP);
+    Rcpp::traits::input_parameter< double >::type northing(northingSEXP);
+    Rcpp::traits::input_parameter< bool >::type degrees(degreesSEXP);
+    rcpp_result_gen = Rcpp::wrap(utm_to_latlng(zone, hemisphere, easting, northing, degrees));
+    return rcpp_result_gen;
+END_RCPP
+}

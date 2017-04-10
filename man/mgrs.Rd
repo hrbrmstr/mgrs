@@ -4,9 +4,9 @@
 \name{mgrs}
 \alias{mgrs}
 \alias{mgrs-package}
-\title{Convert 'MGRS' Coordinates To and From Other Coordiante Systems}
+\title{Convert 'MGRS' ('Military Grid Reference System') Coordinates To and From Other Coordinate Systems}
 \description{
-Convert 'MGRS' Coordinates To and From Other Coordiante Systems
+Convert 'MGRS' ('Military Grid Reference System') Coordinates To and From Other Coordinate Systems
 }
 \author{
 Bob Rudis (bob@rud.is)
