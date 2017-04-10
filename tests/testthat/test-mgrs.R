@@ -1,5 +1,5 @@
-context("basic functionality")
-test_that("we can do something", {
+context("coordinate conversion")
+test_that("we can convert things", {
 
   expect_equal(mgrs_to_latlng("33UXP04"),
                structure(c(48.2053484084679, 16.3459269599006),
@@ -25,8 +25,7 @@ test_that("we can do something", {
                structure(list(mgrs = "48PUV7729883034", zone = 48, hemisphere = "N",
                               easting = 377298, northing = 1483034),
                          .Names = c("mgrs", "zone", "hemisphere", "easting", "northing"),
-                         row.names = c(NA,
-                                                                                                                                            -1L), class = "data.frame"))
+                         row.names = c(NA, -1L), class = "data.frame"))
 
   expect_equal(ups_to_mgrs("N", 2426773, 1530125), "ZGC2677330125")
 
