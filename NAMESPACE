@@ -2,5 +2,11 @@
 
 export(latlng_to_mgrs)
 export(mgrs_to_latlng)
+export(mgrs_to_ups)
+export(mgrs_to_utm)
+export(ups_to_latlng)
+export(ups_to_mgrs)
+export(utm_to_latlng)
+export(utm_to_mgrs)
 importFrom(Rcpp,sourceCpp)
 useDynLib(mgrs)

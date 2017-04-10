@@ -1,10 +1,18 @@
 
-`mgrs` : Convert 'MGRS' Coordinates To and From Other Coordiante Systems
+`mgrs` : Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
+
+Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
+
+Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
 
 The following functions are implemented:
 
 -   `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
 -   `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
+-   `mgrs_to_ups`: Convert MGRS to UPS
+-   `mgrs_to_utm`: Convert MGRS to UTM
+-   `ups_to_mgrs`: Convert UPS to MGRS
+-   `utm_to_mgrs`: Convert UTM to MGRS
 
 ### TODO
 
@@ -70,3 +78,29 @@ latlng_to_mgrs(83.62738, -32.66879)
 ```
 
     ## [1] "25XEN0410486507"
+
+``` r
+utm_to_mgrs(48, "N", 377299, 1483035)
+```
+
+    ## [1] "48PUV7729983035"
+
+``` r
+mgrs_to_utm("48PUV7729883034")
+```
+
+    ##              mgrs zone hemisphere easting northing
+    ## 1 48PUV7729883034   48          N  377298  1483034
+
+``` r
+ups_to_mgrs("N", 2426773, 1530125)
+```
+
+    ## [1] "ZGC2677330125"
+
+``` r
+mgrs_to_ups("ZGC2677330125")
+```
+
+    ##            mgrs hemisphere easting northing
+    ## 1 ZGC2677330125          N 2426773  1530125

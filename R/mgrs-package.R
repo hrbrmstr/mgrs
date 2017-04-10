@@ -1,4 +1,4 @@
-#' Convert 'MGRS' Coordinates To and From Other Coordiante Systems
+#' Convert 'MGRS' ('Military Grid Reference System') Coordinates To and From Other Coordinate Systems
 #'
 #' @name mgrs
 #' @docType package

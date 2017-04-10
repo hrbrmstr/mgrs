@@ -11,7 +11,7 @@ latlng_to_mgrs(latitude, longitude, degrees = TRUE, precision = 5L)
 
 \item{degrees}{are latitude/longitude in degrees? Default: \code{TRUE}}
 
-\item{precision}{level of precision for the conversion. Default \code{5}}
+\item{precision}{0:5; level of precision for the conversion. Default \code{5}}
 }
 \description{
 Convert latitude/longitude to MGRS string

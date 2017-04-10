@@ -1,11 +1,12 @@
 Package: mgrs
 Type: Package
-Title: Convert 'MGRS' Coordinates To and From Other Coordiante Systems
+Title: Convert 'MGRS' ('Military Grid Reference System') Coordinates To and From Other Coordinate Systems
 Version: 0.1.0
 Date: 2017-04-09
 Author: Bob Rudis (bob@rud.is), Howard Butler
 Maintainer: Bob Rudis <bob@rud.is>
-Description: Convert 'MGRS' Coordinates To and From Other Coordiante Systems
+Description: Convert 'MGRS' ('Military Grid Reference System') Coordinates To and From 
+    Other Coordinate Systems
 URL: https://github.com/hrbrmstr/mgrs
 BugReports: https://github.com/hrbrmstr/mgrs/issues
 License: AGPL
