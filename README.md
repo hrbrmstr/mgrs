@@ -107,16 +107,53 @@ mgrs_to_ups("ZGC2677330125")
     ##            mgrs hemisphere easting northing
     ## 1 ZGC2677330125          N 2426773  1530125
 
+### Visual Verification
+
+``` r
+library(purrr)
+library(ggplot2)
+
+# precision == 1
+
+c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
+"18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
+"16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
+"19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
+"15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
+"13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
+"10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
+"14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
+"16TBQ64", "13TCH16") -> mgrs_state_centers
+
+map(mgrs_state_centers, mgrs_to_latlng) %>% 
+  map(as.list) %>% 
+  map_df(flatten_df) %>% 
+  ggplot(aes(lng, lat)) +
+  geom_point(shape=22, size=2, color="white", fill="black") +
+  coord_map("polyconic")
+```
+
+<img src="README_files/figure-markdown_github/unnamed-chunk-4-1.png" width="960" />
+
 ### Test Results
 
 ``` r
 library(mgrs)
 library(testthat)
+```
 
+    ## 
+    ## Attaching package: 'testthat'
+
+    ## The following object is masked from 'package:purrr':
+    ## 
+    ##     is_null
+
+``` r
 date()
 ```
 
-    ## [1] "Sun Apr  9 23:30:49 2017"
+    ## [1] "Mon Apr 10 00:04:53 2017"
 
 ``` r
 test_dir("tests/")
