@@ -18,7 +18,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // latlng_to_mgrs
-std::string latlng_to_mgrs(double latitude, double longitude, bool degrees, int precision);
+String latlng_to_mgrs(double latitude, double longitude, bool degrees, int precision);
 RcppExport SEXP mgrs_latlng_to_mgrs(SEXP latitudeSEXP, SEXP longitudeSEXP, SEXP degreesSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -32,7 +32,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // utm_to_mgrs
-std::string utm_to_mgrs(long zone, std::string hemisphere, double easting, double northing, long precision);
+String utm_to_mgrs(long zone, std::string hemisphere, double easting, double northing, long precision);
 RcppExport SEXP mgrs_utm_to_mgrs(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -58,7 +58,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // ups_to_mgrs
-std::string ups_to_mgrs(std::string hemisphere, double easting, double northing, long precision);
+String ups_to_mgrs(std::string hemisphere, double easting, double northing, long precision);
 RcppExport SEXP mgrs_ups_to_mgrs(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

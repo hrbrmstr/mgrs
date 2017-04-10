@@ -21,10 +21,10 @@ The following functions are implemented:
 
 - Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
 - Vectorize ALL THE THINGS
-- Add in support for the other MGRS conversion thingys
-- Error checking
+- <strike>Add in support for the other MGRS conversion thingys</strike>
+- More error checking (basic checking is done)
 - Precision validation
-- Tests (etc)
+- More tests (basic testing is done)
 
 ### Installation
 
@@ -64,3 +64,18 @@ ups_to_mgrs("N", 2426773, 1530125)
 
 mgrs_to_ups("ZGC2677330125")
 ```
+
+### Test Results
+
+```{r test}
+library(mgrs)
+library(testthat)
+
+date()
+
+test_dir("tests/")
+```
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
