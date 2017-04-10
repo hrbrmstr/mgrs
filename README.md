@@ -1,4 +1,6 @@
 
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) [![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs) [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs) [![keybase verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
+
 `mgrs` : Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
 
 Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
@@ -114,7 +116,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Apr  9 22:44:37 2017"
+    ## [1] "Sun Apr  9 23:30:49 2017"
 
 ``` r
 test_dir("tests/")
