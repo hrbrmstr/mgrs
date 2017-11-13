@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // mgrs_to_latlng
 DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees);
-RcppExport SEXP mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP) {
+RcppExport SEXP _mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // latlng_to_mgrs
 String latlng_to_mgrs(double latitude, double longitude, bool degrees, int precision);
-RcppExport SEXP mgrs_latlng_to_mgrs(SEXP latitudeSEXP, SEXP longitudeSEXP, SEXP degreesSEXP, SEXP precisionSEXP) {
+RcppExport SEXP _mgrs_latlng_to_mgrs(SEXP latitudeSEXP, SEXP longitudeSEXP, SEXP degreesSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +33,7 @@ END_RCPP
 }
 // utm_to_mgrs
 String utm_to_mgrs(long zone, std::string hemisphere, double easting, double northing, long precision);
-RcppExport SEXP mgrs_utm_to_mgrs(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
+RcppExport SEXP _mgrs_utm_to_mgrs(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -48,7 +48,7 @@ END_RCPP
 }
 // mgrs_to_utm
 DataFrame mgrs_to_utm(std::string mgrs_string);
-RcppExport SEXP mgrs_mgrs_to_utm(SEXP mgrs_stringSEXP) {
+RcppExport SEXP _mgrs_mgrs_to_utm(SEXP mgrs_stringSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,7 +59,7 @@ END_RCPP
 }
 // ups_to_mgrs
 String ups_to_mgrs(std::string hemisphere, double easting, double northing, long precision);
-RcppExport SEXP mgrs_ups_to_mgrs(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
+RcppExport SEXP _mgrs_ups_to_mgrs(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP precisionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -73,7 +73,7 @@ END_RCPP
 }
 // mgrs_to_ups
 DataFrame mgrs_to_ups(std::string mgrs_string);
-RcppExport SEXP mgrs_mgrs_to_ups(SEXP mgrs_stringSEXP) {
+RcppExport SEXP _mgrs_mgrs_to_ups(SEXP mgrs_stringSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -84,7 +84,7 @@ END_RCPP
 }
 // ups_to_latlng
 NumericVector ups_to_latlng(std::string hemisphere, double easting, double northing, bool degrees);
-RcppExport SEXP mgrs_ups_to_latlng(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
+RcppExport SEXP _mgrs_ups_to_latlng(SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -98,7 +98,7 @@ END_RCPP
 }
 // utm_to_latlng
 NumericVector utm_to_latlng(long zone, std::string hemisphere, double easting, double northing, bool degrees);
-RcppExport SEXP mgrs_utm_to_latlng(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
+RcppExport SEXP _mgrs_utm_to_latlng(SEXP zoneSEXP, SEXP hemisphereSEXP, SEXP eastingSEXP, SEXP northingSEXP, SEXP degreesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -110,4 +110,21 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(utm_to_latlng(zone, hemisphere, easting, northing, degrees));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_mgrs_mgrs_to_latlng", (DL_FUNC) &_mgrs_mgrs_to_latlng, 2},
+    {"_mgrs_latlng_to_mgrs", (DL_FUNC) &_mgrs_latlng_to_mgrs, 4},
+    {"_mgrs_utm_to_mgrs", (DL_FUNC) &_mgrs_utm_to_mgrs, 5},
+    {"_mgrs_mgrs_to_utm", (DL_FUNC) &_mgrs_mgrs_to_utm, 1},
+    {"_mgrs_ups_to_mgrs", (DL_FUNC) &_mgrs_ups_to_mgrs, 4},
+    {"_mgrs_mgrs_to_ups", (DL_FUNC) &_mgrs_mgrs_to_ups, 1},
+    {"_mgrs_ups_to_latlng", (DL_FUNC) &_mgrs_ups_to_latlng, 4},
+    {"_mgrs_utm_to_latlng", (DL_FUNC) &_mgrs_utm_to_latlng, 5},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_mgrs(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

@@ -1,3 +1,7 @@
+0.2.1
+
+* Added `mgrs_area()`
+
 0.1.1
 
 * `mgrs_to_latlng()` now always returns a `data.frame`
