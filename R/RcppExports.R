@@ -12,7 +12,7 @@
 #' @examples
 #' mgrs_to_latlng("15TWG0000049776")
 mgrs_to_latlng <- function(MGRS, degrees = TRUE) {
-    .Call('mgrs_mgrs_to_latlng', PACKAGE = 'mgrs', MGRS, degrees)
+    .Call(`_mgrs_mgrs_to_latlng`, MGRS, degrees)
 }
 
 #' Convert latitude/longitude to MGRS string
@@ -25,7 +25,7 @@ mgrs_to_latlng <- function(MGRS, degrees = TRUE) {
 #' @examples
 #' latlng_to_mgrs(42, -93)
 latlng_to_mgrs <- function(latitude, longitude, degrees = TRUE, precision = 5L) {
-    .Call('mgrs_latlng_to_mgrs', PACKAGE = 'mgrs', latitude, longitude, degrees, precision)
+    .Call(`_mgrs_latlng_to_mgrs`, latitude, longitude, degrees, precision)
 }
 
 #' Convert UTM to MGRS
@@ -39,7 +39,7 @@ latlng_to_mgrs <- function(latitude, longitude, degrees = TRUE, precision = 5L) 
 #' @examples
 #' utm_to_mgrs(48, "N", 377299, 1483035)
 utm_to_mgrs <- function(zone, hemisphere, easting, northing, precision = 5L) {
-    .Call('mgrs_utm_to_mgrs', PACKAGE = 'mgrs', zone, hemisphere, easting, northing, precision)
+    .Call(`_mgrs_utm_to_mgrs`, zone, hemisphere, easting, northing, precision)
 }
 
 #' Convert MGRS to UTM
@@ -51,7 +51,7 @@ utm_to_mgrs <- function(zone, hemisphere, easting, northing, precision = 5L) {
 #' @examples
 #' mgrs_to_utm("48PUV7729883034")
 mgrs_to_utm <- function(mgrs_string) {
-    .Call('mgrs_mgrs_to_utm', PACKAGE = 'mgrs', mgrs_string)
+    .Call(`_mgrs_mgrs_to_utm`, mgrs_string)
 }
 
 #' Convert UPS to MGRS
@@ -64,7 +64,7 @@ mgrs_to_utm <- function(mgrs_string) {
 #' @examples
 #' ups_to_mgrs("N", 2426773, 1530125)
 ups_to_mgrs <- function(hemisphere, easting, northing, precision = 5L) {
-    .Call('mgrs_ups_to_mgrs', PACKAGE = 'mgrs', hemisphere, easting, northing, precision)
+    .Call(`_mgrs_ups_to_mgrs`, hemisphere, easting, northing, precision)
 }
 
 #' Convert MGRS to UPS
@@ -76,7 +76,7 @@ ups_to_mgrs <- function(hemisphere, easting, northing, precision = 5L) {
 #' @examples
 #' mgrs_to_ups("ZGC2677330125")
 mgrs_to_ups <- function(mgrs_string) {
-    .Call('mgrs_mgrs_to_ups', PACKAGE = 'mgrs', mgrs_string)
+    .Call(`_mgrs_mgrs_to_ups`, mgrs_string)
 }
 
 #' Convert UPS to Latitude/Longitude
@@ -89,7 +89,7 @@ mgrs_to_ups <- function(mgrs_string) {
 #' @examples
 #' ups_to_latlng("N", 2426773, 1530125)
 ups_to_latlng <- function(hemisphere, easting, northing, degrees = TRUE) {
-    .Call('mgrs_ups_to_latlng', PACKAGE = 'mgrs', hemisphere, easting, northing, degrees)
+    .Call(`_mgrs_ups_to_latlng`, hemisphere, easting, northing, degrees)
 }
 
 #' Convert UTM to Latitude/Longitude
@@ -103,6 +103,6 @@ ups_to_latlng <- function(hemisphere, easting, northing, degrees = TRUE) {
 #' @examples
 #' utm_to_latlng(48, "N", 377299, 1483035)
 utm_to_latlng <- function(zone, hemisphere, easting, northing, degrees = TRUE) {
-    .Call('mgrs_utm_to_latlng', PACKAGE = 'mgrs', zone, hemisphere, easting, northing, degrees)
+    .Call(`_mgrs_utm_to_latlng`, zone, hemisphere, easting, northing, degrees)
 }
 
