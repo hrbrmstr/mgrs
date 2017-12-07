@@ -20,7 +20,7 @@
 #' For example (spaces used for clarity):
 #'
 #' \describe{
-#' \item{4Q}{precision level 6° × 8° (in most cases) - function returns \code{NA} for this}
+#' \item{4Q}{precision level 6x8 degrees (in most cases) - function returns \code{NA} for this}
 #' \item{4QFJ}{precision level 100 km}
 #' \item{4QFJ 1 6}{precision level 10 km}
 #' \item{4QFJ 12 67}{precision level 1 km}
@@ -35,9 +35,9 @@
 #' @references <https://en.wikipedia.org/wiki/Military_Grid_Reference_System#Grid_zone_designation>
 #' @export
 #' @examples
-# grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
-#            "4QFJ12346789", "4QFJ1234567890")
-# mgrs_precision(grefs)
+#' grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
+#'            "4QFJ12346789", "4QFJ1234567890")
+#' mgrs_precision(grefs)
 mgrs_precision <- function(x) {
 
   x <- gsub("[[:space:]]", "", x)

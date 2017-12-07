@@ -1,37 +1,59 @@
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) [![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs) [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs) [![keybase verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
+[![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
+[![Travis-CI Build
+Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
+[![keybase
+verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
 
-`mgrs` : Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
+# mgrs
 
-Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
+Convert ‘MGRS’ (Military Grid Reference System) References To and From
+Other Coordinate Systems
 
-Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
+## Description
+
+Essentially, a lightweight R wrapper around bits of
+<https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
+
+Decent reference on MGRS & UTM (Universal Transverse Mercator):
+<https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
+
+## What’s inside the tin?
 
 The following functions are implemented:
 
--   `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
--   `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude **(now returns a `data.frame`)**
--   `mgrs_to_ups`: Convert MGRS to UPS
--   `mgrs_to_utm`: Convert MGRS to UTM
--   `ups_to_mgrs`: Convert UPS to MGRS
--   `utm_to_mgrs`: Convert UTM to MGRS
+  - `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
+  - `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
+    **(now returns a `data.frame`)**
+  - `mgrs_to_ups`: Convert MGRS to UPS
+  - `mgrs_to_utm`: Convert MGRS to UTM
+  - `ups_to_mgrs`: Convert UPS to MGRS
+  - `utm_to_mgrs`: Convert UTM to MGRS
+  - `mgrs_precision`: Return MGRS grid reference precision (in meters)
 
-### TODO
+## TODO
 
--   Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
--   Vectorize ALL THE THINGS
--   <strike>Add in support for the other MGRS conversion thingys</strike>
--   More error checking (basic checking is done)
--   Precision validation
--   More tests (basic testing is done)
+  - Find all the folks/projects I need to add in the `DESCRIPTION` for
+    auth/ctb & docs
+  - Vectorize ALL THE THINGS
+  - <strike>Add in support for the other MGRS conversion
+    thingys</strike>
+  - More error checking (basic checking is done)
+  - Precision validation
+  - More tests (basic testing is done)
 
-### Installation
+## Installation
 
 ``` r
 devtools::install_github("hrbrmstr/mgrs")
 ```
 
-### Usage
+## Usage
 
 ``` r
 library(mgrs)
@@ -107,6 +129,21 @@ mgrs_to_ups("ZGC2677330125")
     ##            mgrs hemisphere easting northing
     ## 1 ZGC2677330125          N 2426773  1530125
 
+``` r
+grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
+           "4QFJ12346789", "4QFJ1234567890")
+mgrs_precision(grefs)
+```
+
+    ##         grid_ref precision
+    ## 1             4Q        NA
+    ## 2           4QFJ     1e+05
+    ## 3         4QFJ16     1e+04
+    ## 4       4QFJ1267     1e+03
+    ## 5     4QFJ123678     1e+02
+    ## 6   4QFJ12346789     1e+01
+    ## 7 4QFJ1234567890     1e+00
+
 ### Visual Verification
 
 ``` r
@@ -131,37 +168,10 @@ mgrs_to_latlng(mgrs_state_centers) %>%
   coord_map("polyconic")
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-4-1.png" width="960" />
+<img src="README_files/figure-gfm/unnamed-chunk-4-1.png" width="960" />
 
-### Test Results
+## Code of Conduct
 
-``` r
-library(mgrs)
-library(testthat)
-```
-
-    ## 
-    ## Attaching package: 'testthat'
-
-    ## The following object is masked from 'package:purrr':
-    ## 
-    ##     is_null
-
-``` r
-date()
-```
-
-    ## [1] "Mon Apr 10 13:28:40 2017"
-
-``` r
-test_dir("tests/")
-```
-
-    ## testthat results ========================================================================================================
-    ## OK: 10 SKIPPED: 0 FAILED: 0
-    ## 
-    ## DONE ===================================================================================================================
-
-### Code of Conduct
-
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.

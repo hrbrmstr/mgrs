@@ -4,15 +4,22 @@ editor_options:
   chunk_output_type: console
 ---
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
 [![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
 [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
 [![keybase verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
 
-`mgrs` : Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
+# mgrs
+
+Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
+
+## Description
 
 Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
 
 Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
+
+## What's inside the tin?
 
 The following functions are implemented:
 
@@ -24,7 +31,7 @@ The following functions are implemented:
 - `utm_to_mgrs`:	Convert UTM to MGRS
 - `mgrs_precision`: Return MGRS grid reference precision (in meters)
 
-### TODO
+## TODO
 
 - Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
 - Vectorize ALL THE THINGS
@@ -33,7 +40,7 @@ The following functions are implemented:
 - Precision validation
 - More tests (basic testing is done)
 
-### Installation
+## Installation
 
 ```{r eval=FALSE}
 devtools::install_github("hrbrmstr/mgrs")
@@ -43,7 +50,7 @@ devtools::install_github("hrbrmstr/mgrs")
 options(width=120)
 ```
 
-### Usage
+## Usage
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(mgrs)
@@ -100,17 +107,6 @@ mgrs_to_latlng(mgrs_state_centers) %>%
   coord_map("polyconic")
 ```
 
-### Test Results
-
-```{r test}
-library(mgrs)
-library(testthat)
-
-date()
-
-test_dir("tests/")
-```
-
-### Code of Conduct
+## Code of Conduct
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
