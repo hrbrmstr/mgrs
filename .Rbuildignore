@@ -10,3 +10,4 @@
 ^doc$
 ^CONDUCT\.md$
 ^codecov\.yml$
+^appveyor\.yml$
