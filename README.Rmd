@@ -11,38 +11,46 @@ editor_options:
 
 # mgrs
 
-Convert 'MGRS' (Military Grid Reference System) References To and From Other Coordinate Systems
+Convert 'MGRS' (Military Grid Reference System) References From/To Other Coordinate Systems
 
 ## Description
+
+The 'Military Grid Reference System' ('MGRS') is the geocoordinate
+standard used by 'NATO' militaries for locating points on the earth. The 'MGRS' 
+is derived from the 'Universal Transverse Mercator' ('UTM') grid system and 
+the universal polar stereographic ('UPS') grid system, but uses a different 
+labeling convention. The 'MGRS' is used for the entire earth. Methods are
+provided to onvert 'MGRS' coordinates to and from other coordinate systems.
 
 Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
 
 Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
+
+The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
+
+![The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.](man/figures/mgrs-grid.png)
+
+[CC-BY-SA 3.0](https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png)
 
 ## What's inside the tin?
 
 The following functions are implemented:
 
 - `latlng_to_mgrs`:	Convert latitude/longitude to MGRS string 
-- `mgrs_to_latlng`:	Convert an MGRS string to latitude/longitude **(now returns a `data.frame`)**
+- `mgrs_to_latlng`:	Convert an MGRS string to latitude/longitude
 - `mgrs_to_ups`:	Convert MGRS to UPS
 - `mgrs_to_utm`:	Convert MGRS to UTM
 - `ups_to_mgrs`:	Convert UPS to MGRS
 - `utm_to_mgrs`:	Convert UTM to MGRS
 - `mgrs_precision`: Return MGRS grid reference precision (in meters)
 
-## TODO
-
-- Find all the folks/projects I need to add in the `DESCRIPTION` for auth/ctb & docs
-- Vectorize ALL THE THINGS
-- <strike>Add in support for the other MGRS conversion thingys</strike>
-- More error checking (basic checking is done)
-- Precision validation
-- More tests (basic testing is done)
-
 ## Installation
 
 ```{r eval=FALSE}
+devtools::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
+# OR
+devtools::install_gitlab("hrbrmstr/mgrs")
+# OR 
 devtools::install_github("hrbrmstr/mgrs")
 ```
 
@@ -54,6 +62,7 @@ options(width=120)
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(mgrs)
+library(hrbrthemes)
 
 # current verison
 packageVersion("mgrs")
@@ -83,6 +92,27 @@ grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
 mgrs_precision(grefs)
 ```
 
+### Better usage in the tidyverse
+
+```{r}
+data.frame(
+  id = 1:50, 
+  mgrs = c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
+"18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
+"16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
+"19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
+"15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
+"13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
+"10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
+"14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
+"16TBQ64", "13TCH16"),
+  stringsAsFactors = FALSE
+) -> sample_dta
+
+dplyr::mutate(sample_dta, x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)) %>% 
+  tidyr::unnest(x)
+```
+
 ### Visual Verification
 
 ```{r fig.retina=2, fig.width=10, fig.height=5}
@@ -103,8 +133,9 @@ c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58",
 
 mgrs_to_latlng(mgrs_state_centers) %>% 
   ggplot(aes(lng, lat)) +
-  geom_point(shape=22, size=2, color="white", fill="black") +
-  coord_map("polyconic")
+  geom_point(shape=22, size=2, color="black", fill="white") +
+  coord_map("polyconic") +
+  theme_ft_rc(grid="XY")
 ```
 
 ## Code of Conduct

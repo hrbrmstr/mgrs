@@ -42,4 +42,22 @@ test_that("we can convert things", {
                                                               "easting",  "northing"),
                          row.names = c(NA, -1L), class = "data.frame"))
 
+  data.frame(
+    id = 1:50,
+    mgrs = c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58",
+             "18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62",
+             "16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68",
+             "19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31",
+             "15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62",
+             "13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73",
+             "10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44",
+             "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25",
+             "16TBQ64", "13TCH16"),
+    stringsAsFactors = FALSE
+  ) -> sample_dta
+
+  expect_equal(ncol(mgrs_to_latlng(sample_dta$mgrs, include_mgrs_ref = FALSE)), 2)
+  expect_equal(ncol(mgrs_to_utm("48PUV7729883034", include_mgrs_ref = FALSE)), 4)
+  expect_equal(ncol(mgrs_to_ups("ZGC2677330125", include_mgrs_ref = FALSE)), 3)
+
 })
