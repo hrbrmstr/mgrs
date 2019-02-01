@@ -7,12 +7,14 @@
 #' @note vectorized
 #' @param MGRS an MGRS string
 #' @param degrees convert to degrees? Default: `TRUE`
+#' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+#'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 #' @export
 #' @return `data.frame`
 #' @examples
 #' mgrs_to_latlng("15TWG0000049776")
-mgrs_to_latlng <- function(MGRS, degrees = TRUE) {
-    .Call(`_mgrs_mgrs_to_latlng`, MGRS, degrees)
+mgrs_to_latlng <- function(MGRS, degrees = TRUE, include_mgrs_ref = TRUE) {
+    .Call(`_mgrs_mgrs_to_latlng`, MGRS, degrees, include_mgrs_ref)
 }
 
 #' Convert latitude/longitude to MGRS string
@@ -45,13 +47,16 @@ utm_to_mgrs <- function(zone, hemisphere, easting, northing, precision = 5L) {
 #' Convert MGRS to UTM
 #'
 #' @md
-#' @param mgrs_string an MGRS string
+#' @note vectorized
+#' @param mgrs_string acharacter vector of MGRS strings
+#' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+#'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 #' @return `data.frame`
 #' @export
 #' @examples
 #' mgrs_to_utm("48PUV7729883034")
-mgrs_to_utm <- function(mgrs_string) {
-    .Call(`_mgrs_mgrs_to_utm`, mgrs_string)
+mgrs_to_utm <- function(mgrs_string, include_mgrs_ref = TRUE) {
+    .Call(`_mgrs_mgrs_to_utm`, mgrs_string, include_mgrs_ref)
 }
 
 #' Convert UPS to MGRS
@@ -70,13 +75,16 @@ ups_to_mgrs <- function(hemisphere, easting, northing, precision = 5L) {
 #' Convert MGRS to UPS
 #'
 #' @md
-#' @param mgrs_string an MGRS string
+#' @note vectorized
+#' @param mgrs_string a character vector of MGRS strings
+#' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+#'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 #' @return `data.frame`
 #' @export
 #' @examples
 #' mgrs_to_ups("ZGC2677330125")
-mgrs_to_ups <- function(mgrs_string) {
-    .Call(`_mgrs_mgrs_to_ups`, mgrs_string)
+mgrs_to_ups <- function(mgrs_string, include_mgrs_ref = TRUE) {
+    .Call(`_mgrs_mgrs_to_ups`, mgrs_string, include_mgrs_ref)
 }
 
 #' Convert UPS to Latitude/Longitude

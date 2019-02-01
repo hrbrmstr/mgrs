@@ -6,14 +6,15 @@
 using namespace Rcpp;
 
 // mgrs_to_latlng
-DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees);
-RcppExport SEXP _mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP) {
+DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees, bool include_mgrs_ref);
+RcppExport SEXP _mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP, SEXP include_mgrs_refSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector < std::string > >::type MGRS(MGRSSEXP);
     Rcpp::traits::input_parameter< bool >::type degrees(degreesSEXP);
-    rcpp_result_gen = Rcpp::wrap(mgrs_to_latlng(MGRS, degrees));
+    Rcpp::traits::input_parameter< bool >::type include_mgrs_ref(include_mgrs_refSEXP);
+    rcpp_result_gen = Rcpp::wrap(mgrs_to_latlng(MGRS, degrees, include_mgrs_ref));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -47,13 +48,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // mgrs_to_utm
-DataFrame mgrs_to_utm(std::string mgrs_string);
-RcppExport SEXP _mgrs_mgrs_to_utm(SEXP mgrs_stringSEXP) {
+DataFrame mgrs_to_utm(std::vector < std::string > mgrs_string, bool include_mgrs_ref);
+RcppExport SEXP _mgrs_mgrs_to_utm(SEXP mgrs_stringSEXP, SEXP include_mgrs_refSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type mgrs_string(mgrs_stringSEXP);
-    rcpp_result_gen = Rcpp::wrap(mgrs_to_utm(mgrs_string));
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type mgrs_string(mgrs_stringSEXP);
+    Rcpp::traits::input_parameter< bool >::type include_mgrs_ref(include_mgrs_refSEXP);
+    rcpp_result_gen = Rcpp::wrap(mgrs_to_utm(mgrs_string, include_mgrs_ref));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -72,13 +74,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // mgrs_to_ups
-DataFrame mgrs_to_ups(std::string mgrs_string);
-RcppExport SEXP _mgrs_mgrs_to_ups(SEXP mgrs_stringSEXP) {
+DataFrame mgrs_to_ups(std::vector < std::string > mgrs_string, bool include_mgrs_ref);
+RcppExport SEXP _mgrs_mgrs_to_ups(SEXP mgrs_stringSEXP, SEXP include_mgrs_refSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type mgrs_string(mgrs_stringSEXP);
-    rcpp_result_gen = Rcpp::wrap(mgrs_to_ups(mgrs_string));
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type mgrs_string(mgrs_stringSEXP);
+    Rcpp::traits::input_parameter< bool >::type include_mgrs_ref(include_mgrs_refSEXP);
+    rcpp_result_gen = Rcpp::wrap(mgrs_to_ups(mgrs_string, include_mgrs_ref));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -113,12 +116,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_mgrs_mgrs_to_latlng", (DL_FUNC) &_mgrs_mgrs_to_latlng, 2},
+    {"_mgrs_mgrs_to_latlng", (DL_FUNC) &_mgrs_mgrs_to_latlng, 3},
     {"_mgrs_latlng_to_mgrs", (DL_FUNC) &_mgrs_latlng_to_mgrs, 4},
     {"_mgrs_utm_to_mgrs", (DL_FUNC) &_mgrs_utm_to_mgrs, 5},
-    {"_mgrs_mgrs_to_utm", (DL_FUNC) &_mgrs_mgrs_to_utm, 1},
+    {"_mgrs_mgrs_to_utm", (DL_FUNC) &_mgrs_mgrs_to_utm, 2},
     {"_mgrs_ups_to_mgrs", (DL_FUNC) &_mgrs_ups_to_mgrs, 4},
-    {"_mgrs_mgrs_to_ups", (DL_FUNC) &_mgrs_mgrs_to_ups, 1},
+    {"_mgrs_mgrs_to_ups", (DL_FUNC) &_mgrs_mgrs_to_ups, 2},
     {"_mgrs_ups_to_latlng", (DL_FUNC) &_mgrs_ups_to_latlng, 4},
     {"_mgrs_utm_to_latlng", (DL_FUNC) &_mgrs_utm_to_latlng, 5},
     {NULL, NULL, 0}

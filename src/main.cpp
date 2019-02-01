@@ -12,12 +12,15 @@ using namespace Rcpp;
 //' @note vectorized
 //' @param MGRS an MGRS string
 //' @param degrees convert to degrees? Default: `TRUE`
+//' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+//'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 //' @export
 //' @return `data.frame`
 //' @examples
 //' mgrs_to_latlng("15TWG0000049776")
 // [[Rcpp::export]]
-DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees = true) {
+DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees = true,
+                         bool include_mgrs_ref = true) {
 
   double lat, lng;
   long ret, err_ct = 0;
@@ -45,10 +48,24 @@ DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees = true) 
     Rcpp::warning("One or more errors encounterd while converting %d MGRS input strings");
   }
 
-  return(DataFrame::create(_["mgrs"] = MGRS,
-                           _["lat"] = lat_vec,
-                           _["lng"] = lng_vec,
-                           _["stringsAsFactors"] = false));
+  if (include_mgrs_ref) {
+    return(
+      DataFrame::create(
+        _["mgrs"] = MGRS,
+        _["lat"] = lat_vec,
+        _["lng"] = lng_vec,
+        _["stringsAsFactors"] = false
+      )
+    );
+  } else {
+    return(
+      DataFrame::create(
+        _["lat"] = lat_vec,
+        _["lng"] = lng_vec,
+        _["stringsAsFactors"] = false
+      )
+    );
+  }
 
 }
 
@@ -117,38 +134,69 @@ String utm_to_mgrs(long zone, std::string hemisphere,
 //' Convert MGRS to UTM
 //'
 //' @md
-//' @param mgrs_string an MGRS string
+//' @note vectorized
+//' @param mgrs_string acharacter vector of MGRS strings
+//' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+//'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 //' @return `data.frame`
 //' @export
 //' @examples
 //' mgrs_to_utm("48PUV7729883034")
 // [[Rcpp::export]]
-DataFrame mgrs_to_utm(std::string mgrs_string) {
+DataFrame mgrs_to_utm(std::vector < std::string > mgrs_string, bool include_mgrs_ref = true) {
 
   long zone;
   char h_buf[80];
   double easting, northing;
   long ret;
+  IntegerVector zonev = IntegerVector(mgrs_string.size());
+  StringVector hemispherev = StringVector(mgrs_string.size());
+  NumericVector eastingv = NumericVector(mgrs_string.size());
+  NumericVector northingv = NumericVector(mgrs_string.size());
 
-  ret = Convert_MGRS_To_UTM((char *)mgrs_string.c_str(), &zone, h_buf, &easting, &northing);
+  for (unsigned int i=0; i<mgrs_string.size(); i++) {
 
-  if (ret != MGRS_NO_ERROR) {
-    Rcpp::warning("Error converting MGRS to UGM");
-    return(DataFrame::create(_["mgrs"] = mgrs_string,
-                             _["zone"] = NA_INTEGER,
-                             _["hemisphere"] = NA_STRING,
-                             _["easting"] = NA_REAL,
-                             _["northing"] = NA_REAL,
-                             _["stringsAsFactors"] = false));
-  } else {
-    h_buf[1] = '\0';
-    return(DataFrame::create(_["mgrs"] = mgrs_string,
-                             _["zone"] = zone,
-                             _["hemisphere"] = std::string(h_buf),
-                             _["easting"] = easting,
-                             _["northing"] = northing,
-                             _["stringsAsFactors"] = false));
+    ret = Convert_MGRS_To_UTM((char *)mgrs_string[i].c_str(), &zone, h_buf, &easting, &northing);
+
+    if (ret != MGRS_NO_ERROR) {
+      Rcpp::warning("Error converting MGRS to UGM");
+      zonev[i] = NA_INTEGER;
+      hemispherev[i] = NA_STRING;
+      eastingv[i] = NA_REAL;
+      northingv[i] = NA_REAL;
+    } else {
+      h_buf[1] = '\0';
+      zonev[i] = zone;
+      hemispherev[i] = std::string(h_buf);
+      eastingv[i] = easting;
+      northingv[i] = northing;
+    }
+
   }
+
+  if (include_mgrs_ref) {
+    return(
+      DataFrame::create(
+        _["mgrs"] = mgrs_string,
+        _["zone"] = zonev,
+        _["hemisphere"] = hemispherev,
+        _["easting"] = eastingv,
+        _["northing"] = northingv,
+        _["stringsAsFactors"] = false
+      )
+    );
+  } else {
+    return(
+      DataFrame::create(
+        _["zone"] = zonev,
+        _["hemisphere"] = hemispherev,
+        _["easting"] = eastingv,
+        _["northing"] = northingv,
+        _["stringsAsFactors"] = false
+      )
+    );
+  }
+
 }
 
 //' Convert UPS to MGRS
@@ -183,35 +231,63 @@ String ups_to_mgrs(std::string hemisphere,
 //' Convert MGRS to UPS
 //'
 //' @md
-//' @param mgrs_string an MGRS string
+//' @note vectorized
+//' @param mgrs_string a character vector of MGRS strings
+//' @param include_mgrs_ref if `TRUE` the data frame returned fill include
+//'        the MGRS reference in a column named `mgrs`. Default: `TRUE`.
 //' @return `data.frame`
 //' @export
 //' @examples
 //' mgrs_to_ups("ZGC2677330125")
 // [[Rcpp::export]]
-DataFrame mgrs_to_ups(std::string mgrs_string) {
+DataFrame mgrs_to_ups(std::vector < std::string > mgrs_string, bool include_mgrs_ref = true) {
 
   char h_buf[80];
   double easting, northing;
   long ret;
+  StringVector hemispherev = StringVector(mgrs_string.size());
+  NumericVector eastingv = NumericVector(mgrs_string.size());
+  NumericVector northingv = NumericVector(mgrs_string.size());
 
-  ret = Convert_MGRS_To_UPS((char *)mgrs_string.c_str(), h_buf, &easting, &northing);
+  for (unsigned int i=0; i<mgrs_string.size(); i++) {
 
-  if (ret != MGRS_NO_ERROR) {
-    Rcpp::warning("Error converting MGRS to UPS");
-    return(DataFrame::create(_["mgrs"] = mgrs_string,
-                             _["hemisphere"] = NA_STRING,
-                             _["easting"] = NA_REAL,
-                             _["northing"] = NA_REAL,
-                             _["stringsAsFactors"] = false));
-  } else {
-    h_buf[1] = '\0';
-    return(DataFrame::create(_["mgrs"] = mgrs_string,
-                             _["hemisphere"] = std::string(h_buf),
-                             _["easting"] = easting,
-                             _["northing"] = northing,
-                             _["stringsAsFactors"] = false));
+    ret = Convert_MGRS_To_UPS((char *)mgrs_string[i].c_str(), h_buf, &easting, &northing);
+
+    if (ret != MGRS_NO_ERROR) {
+      Rcpp::warning("Error converting MGRS to UGM");
+      hemispherev[i] = NA_STRING;
+      eastingv[i] = NA_REAL;
+      northingv[i] = NA_REAL;
+    } else {
+      h_buf[1] = '\0';
+      hemispherev[i] = std::string(h_buf);
+      eastingv[i] = easting;
+      northingv[i] = northing;
+    }
+
   }
+
+  if (include_mgrs_ref) {
+    return(
+      DataFrame::create(
+        _["mgrs"] = mgrs_string,
+        _["hemisphere"] = hemispherev,
+        _["easting"] = eastingv,
+        _["northing"] = northingv,
+        _["stringsAsFactors"] = false
+      )
+    );
+  } else {
+    return(
+      DataFrame::create(
+        _["hemisphere"] = hemispherev,
+        _["easting"] = eastingv,
+        _["northing"] = northingv,
+        _["stringsAsFactors"] = false
+      )
+    );
+  }
+
 }
 
 //' Convert UPS to Latitude/Longitude
