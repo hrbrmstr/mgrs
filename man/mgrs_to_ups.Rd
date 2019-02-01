@@ -4,16 +4,22 @@
 \alias{mgrs_to_ups}
 \title{Convert MGRS to UPS}
 \usage{
-mgrs_to_ups(mgrs_string)
+mgrs_to_ups(mgrs_string, include_mgrs_ref = TRUE)
 }
 \arguments{
-\item{mgrs_string}{an MGRS string}
+\item{mgrs_string}{a character vector of MGRS strings}
+
+\item{include_mgrs_ref}{if \code{TRUE} the data frame returned fill include
+the MGRS reference in a column named \code{mgrs}. Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame}
 }
 \description{
 Convert MGRS to UPS
+}
+\note{
+vectorized
 }
 \examples{
 mgrs_to_ups("ZGC2677330125")

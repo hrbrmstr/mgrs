@@ -1,0 +1,19 @@
+All R code and src/main.cpp are MIT Licensed.
+
+src/mgrs.[ch], src/tranmerc.[ch], src/ups.[ch] and src/polarst.[ch] are
+sourced from gdal (<https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>) and
+contain the following text which indicates that no licenses apply to these
+components:
+
+/***************************************************************************
+ *
+ * REUSE NOTES
+ *
+ *    MGRS is intended for reuse by any application that does conversions
+ *    between geodetic coordinates and MGRS coordinates.
+ *
+ * LICENSES
+ *
+ *    None apply to this component.
+ *
+ /*
