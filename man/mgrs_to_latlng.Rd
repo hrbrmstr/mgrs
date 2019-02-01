@@ -4,12 +4,15 @@
 \alias{mgrs_to_latlng}
 \title{Convert an MGRS string to latitude/longitude}
 \usage{
-mgrs_to_latlng(MGRS, degrees = TRUE)
+mgrs_to_latlng(MGRS, degrees = TRUE, include_mgrs_ref = TRUE)
 }
 \arguments{
 \item{MGRS}{an MGRS string}
 
 \item{degrees}{convert to degrees? Default: \code{TRUE}}
+
+\item{include_mgrs_ref}{if \code{TRUE} the data frame returned fill include
+the MGRS reference in a column named \code{mgrs}. Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame}

@@ -4,16 +4,22 @@
 \alias{mgrs_to_utm}
 \title{Convert MGRS to UTM}
 \usage{
-mgrs_to_utm(mgrs_string)
+mgrs_to_utm(mgrs_string, include_mgrs_ref = TRUE)
 }
 \arguments{
-\item{mgrs_string}{an MGRS string}
+\item{mgrs_string}{acharacter vector of MGRS strings}
+
+\item{include_mgrs_ref}{if \code{TRUE} the data frame returned fill include
+the MGRS reference in a column named \code{mgrs}. Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame}
 }
 \description{
 Convert MGRS to UTM
+}
+\note{
+vectorized
 }
 \examples{
 mgrs_to_utm("48PUV7729883034")

@@ -21,7 +21,3 @@ after_success:
 notifications:
   email:
     - bob@rud.is
-  irc:
-    channels:
-      - "104.236.112.222#builds"
-    nick: travisci
