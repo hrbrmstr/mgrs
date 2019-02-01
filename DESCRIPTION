@@ -4,6 +4,12 @@ Title: Convert 'MGRS' ('Military Grid Reference System') Coordinates From/To Oth
 Version: 0.2.0
 Date: 2019-02-01
 Author: Bob Rudis (bob@rud.is), Howard Butler
+Authors@R: c(
+      person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0001-5670-2640")),
+      person("Gregory", "Smith", email = "mith.10305@buckeyemail.osu.edu",
+             role = c("ctb"))
+     )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'Military Grid Reference System' ('MGRS') is the geocoordinate
     standard used by 'NATO' militaries for locating points on the earth. The 'MGRS' 

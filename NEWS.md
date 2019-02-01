@@ -5,6 +5,8 @@
 * Added COPYRIGHTS info
 * Modified DESCRIPTION Description
 * Updated package docs to include sample grid
+* Vectorized remaining data frame return functions
+* Added @gl-smith to DESCRIPTION
 * Added `include_mgrs_ref` logical parameter to `mgrs_to_latlng()`
   to support #2
 
