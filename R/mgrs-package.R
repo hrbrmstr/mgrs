@@ -5,7 +5,7 @@
 #' is derived from the 'Universal Transverse Mercator' ('UTM') grid system and
 #' the universal polar stereographic ('UPS') grid system, but uses a different
 #' labeling convention. The 'MGRS' is used for the entire earth. Methods are
-#' provided to onvert 'MGRS' coordinates to and from other coordinate systems.
+#' provided to convert 'MGRS' coordinates to and from other coordinate systems.
 #'
 #' The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 #'
