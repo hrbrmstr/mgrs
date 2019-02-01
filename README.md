@@ -22,7 +22,7 @@ standard used by ‘NATO’ militaries for locating points on the earth. The
 ‘MGRS’ is derived from the ‘Universal Transverse Mercator’ (‘UTM’) grid
 system and the universal polar stereographic (‘UPS’) grid system, but
 uses a different labeling convention. The ‘MGRS’ is used for the entire
-earth. Methods are provided to onvert ‘MGRS’ coordinates to and from
+earth. Methods are provided to convert ‘MGRS’ coordinates to and from
 other coordinate systems.
 
 Essentially, a lightweight R wrapper around bits of
