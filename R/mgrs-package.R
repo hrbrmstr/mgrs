@@ -25,4 +25,4 @@
 #' @author Bob Rudis (bob@@rud.is)
 #' @useDynLib mgrs, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
-NULL
+"_PACKAGE"
