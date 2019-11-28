@@ -5,7 +5,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-23.5%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-27.8%25-lightgrey.svg)
 [![Linux build
 Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
 [![Windows build
@@ -61,9 +61,15 @@ The following functions are implemented:
 ## Installation
 
 ``` r
+install.packages("mgrs", repos = "https://cinc.rud.is")
+# or
+remotes::install_git("https://git.rud.is/hrbrmstr/mgrs.git")
+# or
 remotes::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
 # or
 remotes::install_gitlab("hrbrmstr/mgrs")
+# or
+remotes::install_bitbucket("hrbrmstr/mgrs")
 # or
 remotes::install_github("hrbrmstr/mgrs")
 ```

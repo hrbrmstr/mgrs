@@ -26,6 +26,14 @@ The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 
 \href{https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png}{CC-BY-SA 3.0}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://gitlab.com/hrbrmstr/mgrs}
+  \item Report bugs at \url{https://gitlab.com/hrbrmstr/mgrs/issues}
+}
+
+}
 \author{
 Bob Rudis (bob@rud.is)
 }
