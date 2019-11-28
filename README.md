@@ -1,19 +1,25 @@
 
-[![Project Status: Active - The project has reached a stable, usable
+[![Project Status: Active – The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
-[![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
-[![Travis-CI Build
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Signed
+by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
+![Signed commit
+%](https://img.shields.io/badge/Signed_Commits-23.5%25-lightgrey.svg)
+[![Linux build
 Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
-[![keybase
-verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
+[![Windows build
+status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
+[![Coverage
+Status](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
+![Minimal R
+Version](https://img.shields.io/badge/R%3E%3D-3.2.0-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 # mgrs
 
-Convert ‘MGRS’ (Military Grid Reference System) References From/To Other
-Coordinate Systems
+Convert ‘MGRS’ (‘Military Grid Reference System’) Coordinates From/To
+Other Coordinate Systems
 
 ## Description
 
@@ -38,123 +44,99 @@ The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 
 [CC-BY-SA 3.0](https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png)
 
-## What’s inside the tin?
+## What’s Inside The Tin
 
 The following functions are implemented:
 
   - `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
+  - `mgrs_precision`: Return MGRS grid reference precision (in meters)
   - `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
   - `mgrs_to_ups`: Convert MGRS to UPS
   - `mgrs_to_utm`: Convert MGRS to UTM
+  - `ups_to_latlng`: Convert UPS to Latitude/Longitude
   - `ups_to_mgrs`: Convert UPS to MGRS
+  - `utm_to_latlng`: Convert UTM to Latitude/Longitude
   - `utm_to_mgrs`: Convert UTM to MGRS
-  - `mgrs_precision`: Return MGRS grid reference precision (in meters)
 
 ## Installation
 
 ``` r
-devtools::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
-# OR
-devtools::install_gitlab("hrbrmstr/mgrs")
-# OR 
-devtools::install_github("hrbrmstr/mgrs")
+remotes::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
+# or
+remotes::install_gitlab("hrbrmstr/mgrs")
+# or
+remotes::install_github("hrbrmstr/mgrs")
 ```
+
+NOTE: To use the ‘remotes’ install options you will need to have the
+[{remotes} package](https://github.com/r-lib/remotes) installed.
 
 ## Usage
 
 ``` r
 library(mgrs)
 library(hrbrthemes)
+library(tidyverse)
 
-# current verison
-packageVersion("mgrs")
+# current version
+packageVersion("wand")
+## [1] '0.6.0'
 ```
 
-    ## [1] '0.2.0'
+### Basics
 
 ``` r
 mgrs_to_latlng("33UXP04")
-```
+##      mgrs      lat      lng
+## 1 33UXP04 48.20535 16.34593
 
-    ##      mgrs      lat      lng
-    ## 1 33UXP04 48.20535 16.34593
-
-``` r
 latlng_to_mgrs(48.20535, 16.34593)
-```
+## [1] "33UXP0000040000"
 
-    ## [1] "33UXP0000040000"
-
-``` r
 mgrs_to_latlng("33UXP0500444996")
-```
+##              mgrs      lat      lng
+## 1 33UXP0500444996 48.24947 16.41449
 
-    ##              mgrs      lat      lng
-    ## 1 33UXP0500444996 48.24947 16.41449
-
-``` r
 latlng_to_mgrs(48.24948, 16.41449)
-```
+## [1] "33UXP0500344996"
 
-    ## [1] "33UXP0500344996"
-
-``` r
 mgrs_to_latlng("24XWT783908")
-```
+##          mgrs      lat       lng
+## 1 24XWT783908 83.62738 -32.66879
 
-    ##          mgrs      lat       lng
-    ## 1 24XWT783908 83.62738 -32.66879
-
-``` r
 latlng_to_mgrs(83.62738, -32.66879)
-```
+## [1] "25XEN0410486507"
 
-    ## [1] "25XEN0410486507"
-
-``` r
 utm_to_mgrs(48, "N", 377299, 1483035)
-```
+## [1] "48PUV7729983035"
 
-    ## [1] "48PUV7729983035"
-
-``` r
 mgrs_to_utm("48PUV7729883034")
-```
+##              mgrs zone hemisphere easting northing
+## 1 48PUV7729883034   48          N  377298  1483034
 
-    ##              mgrs zone hemisphere easting northing
-    ## 1 48PUV7729883034   48          N  377298  1483034
-
-``` r
 ups_to_mgrs("N", 2426773, 1530125)
-```
+## [1] "ZGC2677330125"
 
-    ## [1] "ZGC2677330125"
-
-``` r
 mgrs_to_ups("ZGC2677330125")
-```
+##            mgrs hemisphere easting northing
+## 1 ZGC2677330125          N 2426773  1530125
 
-    ##            mgrs hemisphere easting northing
-    ## 1 ZGC2677330125          N 2426773  1530125
-
-``` r
 grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
            "4QFJ12346789", "4QFJ1234567890")
 mgrs_precision(grefs)
+## # A tibble: 7 x 2
+##   grid_ref       precision
+##   <chr>              <dbl>
+## 1 4Q                    NA
+## 2 4QFJ              100000
+## 3 4QFJ16             10000
+## 4 4QFJ1267            1000
+## 5 4QFJ123678           100
+## 6 4QFJ12346789          10
+## 7 4QFJ1234567890         1
 ```
 
-    ## # A tibble: 7 x 2
-    ##   grid_ref       precision
-    ##   <chr>              <dbl>
-    ## 1 4Q                    NA
-    ## 2 4QFJ              100000
-    ## 3 4QFJ16             10000
-    ## 4 4QFJ1267            1000
-    ## 5 4QFJ123678           100
-    ## 6 4QFJ12346789          10
-    ## 7 4QFJ1234567890         1
-
-### Better usage in the tidyverse
+### Better usage in the {tidyverse}
 
 ``` r
 data.frame(
@@ -173,59 +155,21 @@ data.frame(
 
 dplyr::mutate(sample_dta, x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)) %>% 
   tidyr::unnest(x)
+## # A tibble: 50 x 4
+##       id mgrs      lat    lng
+##    <int> <chr>   <dbl>  <dbl>
+##  1     1 16SEB20  32.5  -86.8
+##  2     2 09UXQ25  49.2 -127. 
+##  3     3 12SVC48  34.2 -112. 
+##  4     4 15SWU64  34.7  -92.3
+##  5     5 11SKA54  36.5 -120. 
+##  6     6 13SDC58  38.7 -106. 
+##  7     7 18TYM20  41.5  -72.4
+##  8     8 18SWH08  38.7  -75.0
+##  9     9 17RML38  27.8  -81.7
+## 10    10 17SKR77  32.2  -83.4
+## # … with 40 more rows
 ```
-
-    ##    id    mgrs      lat        lng
-    ## 1   1 16SEB20 32.53717  -86.78701
-    ## 2   2 09UXQ25 49.19105 -127.35303
-    ## 3   3 12SVC48 34.15921 -111.65093
-    ## 4   4 15SWU64 34.70027  -92.34486
-    ## 5   5 11SKA54 36.47270 -119.79027
-    ## 6   6 13SDC58 38.66717 -105.57474
-    ## 7   7 18TYM20 41.52143  -72.36334
-    ## 8   8 18SWH08 38.66858  -75.00000
-    ## 9   9 17RML38 27.84288  -81.71090
-    ## 10 10 17SKR77 32.24313  -83.44116
-    ## 11 11 09RYR61 31.69589 -126.25687
-    ## 12 12 12TTP62 43.49440 -113.96832
-    ## 13 13 16TBK93 39.99409  -89.45983
-    ## 14 14 16TEK73 40.01730  -86.17974
-    ## 15 15 15TVG64 41.91094  -93.48232
-    ## 16 16 14SNH75 38.39548  -98.19839
-    ## 17 17 16SFG94 37.38730  -84.85379
-    ## 18 18 15RWP68 30.55091  -92.37442
-    ## 19 19 19TEL05 45.60354  -69.00000
-    ## 20 20 18SUJ54 39.19632  -76.73702
-    ## 21 21 19TBG89 42.33117  -71.67024
-    ## 22 22 16TFN87 43.06136  -84.78947
-    ## 23 23 15TUM73 46.31111  -94.68838
-    ## 24 24 16SBB31 32.59461  -89.87671
-    ## 25 25 15SWC44 38.30721  -92.54249
-    ## 26 26 12TXS28 46.76276 -109.42851
-    ## 27 27 14TML57 41.27989  -99.59705
-    ## 28 28 11SND12 39.02899 -116.88447
-    ## 29 29 19TCJ00 43.32625  -71.46678
-    ## 30 30 18SWK62 39.92798  -74.29783
-    ## 31 31 13SDU11 34.42756 -105.97949
-    ## 32 32 18TVN87 43.08245  -75.24570
-    ## 33 33 17SQV22 35.39912  -78.57750
-    ## 34 34 14TMT13 47.21732 -100.18865
-    ## 35 35 17TLE65 40.18872  -82.64462
-    ## 36 36 14SPE73 35.49902  -97.12568
-    ## 37 37 10TGP36 43.85725 -120.13815
-    ## 38 38 18TTL93 40.89416  -77.49288
-    ## 39 39 19TCG20 41.53142  -71.15763
-    ## 40 40 17SNT42 33.61904  -80.56877
-    ## 41 41 14TMQ40 44.25077  -99.75154
-    ## 42 42 16SEE44 35.60294  -86.55839
-    ## 43 43 14RNV27 31.36434  -98.78970
-    ## 44 44 12SVJ72 39.02853 -111.34659
-    ## 45 45 18TXQ90 44.22846  -72.62103
-    ## 46 46 17SQB46 37.55578  -78.28300
-    ## 47 47 11TKN95 47.36969 -119.78156
-    ## 48 48 17SNC25 38.39800  -80.77096
-    ## 49 49 16TBQ64 44.57333  -90.02272
-    ## 50 50 13TCH16 42.96895 -107.32983
 
 ### Visual Verification
 
@@ -252,10 +196,20 @@ mgrs_to_latlng(mgrs_state_centers) %>%
   theme_ft_rc(grid="XY")
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-5-1.png" width="960" />
+<img src="man/figures/README-ex3-1.png" width="960" />
+
+## mgrs Metrics
+
+| Lang         | \# Files |  (%) |  LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
+| :----------- | -------: | ---: | ---: | ---: | ----------: | ---: | -------: | ---: |
+| C            |        5 | 0.26 | 1854 | 0.74 |         334 | 0.62 |      918 | 0.52 |
+| C++          |        2 | 0.11 |  339 | 0.13 |          63 | 0.12 |       99 | 0.06 |
+| C/C++ Header |        5 | 0.26 |  181 | 0.07 |          74 | 0.14 |      546 | 0.31 |
+| R            |        6 | 0.32 |   91 | 0.04 |          28 | 0.05 |      158 | 0.09 |
+| Rmd          |        1 | 0.05 |   54 | 0.02 |          39 | 0.07 |       40 | 0.02 |
 
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+Please note that this project is released with a Contributor Code of
+Conduct. By participating in this project you agree to abide by its
+terms.
