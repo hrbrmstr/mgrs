@@ -1,26 +1,17 @@
 ---
 output: rmarkdown::github_document
-editor_options: 
-  chunk_output_type: console
 ---
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
-[![codecov](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
-[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
-[![keybase verified](https://img.shields.io/badge/keybase-verified-brightgreen.svg)](https://gist.github.com/hrbrmstr/be2f2c14fd78cac24697)
+```{r pkg-knitr-opts, include=FALSE}
+hrbrpkghelpr::global_opts()
+```
 
-# mgrs
+```{r badges, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::stinking_badges()
+```
 
-Convert 'MGRS' (Military Grid Reference System) References From/To Other Coordinate Systems
-
-## Description
-
-The 'Military Grid Reference System' ('MGRS') is the geocoordinate
-standard used by 'NATO' militaries for locating points on the earth. The 'MGRS' 
-is derived from the 'Universal Transverse Mercator' ('UTM') grid system and 
-the universal polar stereographic ('UPS') grid system, but uses a different 
-labeling convention. The 'MGRS' is used for the entire earth. Methods are
-provided to convert 'MGRS' coordinates to and from other coordinate systems.
+```{r description, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::yank_title_and_description()
+```
 
 Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
 
@@ -32,41 +23,34 @@ The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 
 [CC-BY-SA 3.0](https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png)
 
-## What's inside the tin?
+## What's Inside The Tin
 
 The following functions are implemented:
 
-- `latlng_to_mgrs`:	Convert latitude/longitude to MGRS string 
-- `mgrs_to_latlng`:	Convert an MGRS string to latitude/longitude
-- `mgrs_to_ups`:	Convert MGRS to UPS
-- `mgrs_to_utm`:	Convert MGRS to UTM
-- `ups_to_mgrs`:	Convert UPS to MGRS
-- `utm_to_mgrs`:	Convert UTM to MGRS
-- `mgrs_precision`: Return MGRS grid reference precision (in meters)
+```{r ingredients, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::describe_ingredients()
+```
 
 ## Installation
 
-```{r eval=FALSE}
-devtools::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
-# OR
-devtools::install_gitlab("hrbrmstr/mgrs")
-# OR 
-devtools::install_github("hrbrmstr/mgrs")
-```
-
-```{r message=FALSE, warning=FALSE, error=FALSE, include=FALSE}
-options(width=120)
+```{r install-ex, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::install_block()
 ```
 
 ## Usage
 
-```{r message=FALSE, warning=FALSE, error=FALSE}
+```{r vers, message=FALSE, warning=FALSE, error=FALSE, cache=FALSE}
 library(mgrs)
 library(hrbrthemes)
+library(tidyverse)
 
-# current verison
-packageVersion("mgrs")
+# current version
+packageVersion("wand")
+```
 
+### Basics
+
+```{r ex1}
 mgrs_to_latlng("33UXP04")
 
 latlng_to_mgrs(48.20535, 16.34593)
@@ -92,9 +76,9 @@ grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
 mgrs_precision(grefs)
 ```
 
-### Better usage in the tidyverse
+### Better usage in the {tidyverse}
 
-```{r}
+```{r ex2}
 data.frame(
   id = 1:50, 
   mgrs = c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
@@ -115,7 +99,7 @@ dplyr::mutate(sample_dta, x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FA
 
 ### Visual Verification
 
-```{r fig.retina=2, fig.width=10, fig.height=5}
+```{r ex3, fig.retina=2, fig.width=10, fig.height=5}
 library(purrr)
 library(ggplot2)
 
@@ -138,6 +122,12 @@ mgrs_to_latlng(mgrs_state_centers) %>%
   theme_ft_rc(grid="XY")
 ```
 
+## mgrs Metrics
+
+```{r cloc, echo=FALSE}
+cloc::cloc_pkg_md()
+```
+
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
