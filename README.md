@@ -5,7 +5,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-27.8%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-31.6%25-lightgrey.svg)
 [![Linux build
 Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
 [![Windows build
@@ -85,8 +85,8 @@ library(hrbrthemes)
 library(tidyverse)
 
 # current version
-packageVersion("wand")
-## [1] '0.6.0'
+packageVersion("mgrs")
+## [1] '0.2.1'
 ```
 
 ### Basics

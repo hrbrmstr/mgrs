@@ -45,7 +45,7 @@ library(hrbrthemes)
 library(tidyverse)
 
 # current version
-packageVersion("wand")
+packageVersion("mgrs")
 ```
 
 ### Basics
