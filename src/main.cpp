@@ -45,7 +45,10 @@ DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees = true,
   }
 
   if (err_ct > 0) {
-    Rcpp::warning("One or more errors encounterd while converting %d MGRS input strings");
+    Rcpp::warning(
+      "%d error%s encounterd while converting %d MGRS input strings.\nErrant MGRS strings will be turned into `NA` pairs.",
+      err_ct, (err_ct > 1 ? "s" : ""), MGRS.size()
+    );
   }
 
   if (include_mgrs_ref) {

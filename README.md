@@ -5,7 +5,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-31.6%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-95%25-lightgrey.svg)
 [![Linux build
 Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
 [![Windows build
@@ -86,7 +86,7 @@ library(tidyverse)
 
 # current version
 packageVersion("mgrs")
-## [1] '0.2.1'
+## [1] '0.2.2'
 ```
 
 ### Basics
@@ -209,7 +209,7 @@ mgrs_to_latlng(mgrs_state_centers) %>%
 | Lang         | \# Files |  (%) |  LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
 | :----------- | -------: | ---: | ---: | ---: | ----------: | ---: | -------: | ---: |
 | C            |        5 | 0.26 | 1854 | 0.74 |         334 | 0.62 |      918 | 0.52 |
-| C++          |        2 | 0.11 |  339 | 0.13 |          63 | 0.12 |       99 | 0.06 |
+| C++          |        2 | 0.11 |  342 | 0.14 |          63 | 0.12 |       99 | 0.06 |
 | C/C++ Header |        5 | 0.26 |  181 | 0.07 |          74 | 0.14 |      546 | 0.31 |
 | R            |        6 | 0.32 |   91 | 0.04 |          28 | 0.05 |      158 | 0.09 |
 | Rmd          |        1 | 0.05 |   54 | 0.02 |          39 | 0.07 |       40 | 0.02 |

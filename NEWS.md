@@ -1,3 +1,7 @@
+0.2.2
+
+* Fixes #5
+
 0.2.0
 
 * Added `mgrs_area()` (completes #1)
