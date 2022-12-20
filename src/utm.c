@@ -3,14 +3,14 @@
  *
  * ABSTRACT
  *
- *    This component provides conversions between geodetic coordinates 
+ *    This component provides conversions between geodetic coordinates
  *    (latitude and longitudes) and Universal Transverse Mercator (UTM)
  *    projection (zone, hemisphere, easting, and northing) coordinates.
  *
  * ERROR HANDLING
  *
  *    This component checks parameters for valid values.  If an invalid value
- *    is found, the error code is combined with the current error code using 
+ *    is found, the error code is combined with the current error code using
  *    the bitwise or.  This combining allows multiple error codes to be
  *    returned. The possible error codes are:
  *
@@ -35,7 +35,7 @@
  *
  *    UTM is intended for reuse by any application that performs a Universal
  *    Transverse Mercator (UTM) projection or its inverse.
- *    
+ *
  * REFERENCES
  *
  *    Further information on UTM can be found in the Reuse Manual.
@@ -86,13 +86,6 @@
  *                              DEFINES
  */
 
-#define PI           3.14159265358979323e0    /* PI                        */
-#define MIN_LAT      ( (-80.5 * PI) / 180.0 ) /* -80.5 degrees in radians    */
-#define MAX_LAT      ( (84.5 * PI) / 180.0 )  /* 84.5 degrees in radians     */
-#define MIN_EASTING  100000
-#define MAX_EASTING  900000
-#define MIN_NORTHING 0
-#define MAX_NORTHING 10000000
 
 /***************************************************************************/
 /*
@@ -110,14 +103,14 @@ static long   UTM_Override = 0;          /* Zone override flag                  
  *
  */
 
-long Set_UTM_Parameters(double a,      
+long Set_UTM_Parameters(double a,
                         double f,
                         long   override)
 {
 /*
  * The function Set_UTM_Parameters receives the ellipsoid parameters and
  * UTM zone override parameter as inputs, and sets the corresponding state
- * variables.  If any errors occur, the error code(s) are returned by the 
+ * variables.  If any errors occur, the error code(s) are returned by the
  * function, otherwise UTM_NO_ERROR is returned.
  *
  *    a                 : Semi-major axis of ellipsoid, in meters       (input)
@@ -175,7 +168,7 @@ long Convert_Geodetic_To_UTM (double Latitude,
                               char   *Hemisphere,
                               double *Easting,
                               double *Northing)
-{ 
+{
 /*
  * The function Convert_Geodetic_To_UTM converts geodetic (latitude and
  * longitude) coordinates to UTM projection (zone, hemisphere, easting and
@@ -296,7 +289,7 @@ long Convert_UTM_To_Geodetic(long   Zone,
                              double *Longitude)
 {
 /*
- * The function Convert_UTM_To_Geodetic converts UTM projection (zone, 
+ * The function Convert_UTM_To_Geodetic converts UTM projection (zone,
  * hemisphere, easting and northing) coordinates to geodetic(latitude
  * and  longitude) coordinates, according to the current ellipsoid
  * parameters.  If any errors occur, the error code(s) are returned
