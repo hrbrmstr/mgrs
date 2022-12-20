@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // mgrs_to_latlng
 DataFrame mgrs_to_latlng(std::vector < std::string > MGRS, bool degrees, bool include_mgrs_ref);
 RcppExport SEXP _mgrs_mgrs_to_latlng(SEXP MGRSSEXP, SEXP degreesSEXP, SEXP include_mgrs_refSEXP) {
