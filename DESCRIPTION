@@ -16,8 +16,8 @@ Description: The 'Military Grid Reference System' ('MGRS') is the geocoordinate
     the universal polar stereographic ('UPS') grid system, but uses a different 
     labeling convention. The 'MGRS' is used for the entire earth. Methods are
     provided to convert 'MGRS' coordinates to and from other coordinate systems.
-URL: https://gitlab.com/hrbrmstr/mgrs
-BugReports: https://gitlab.com/hrbrmstr/mgrs/issues
+URL: https://github.com/hrbrmstr/mgrs
+BugReports: https://github.com/hrbrmstr/mgrs/issues
 Encoding: UTF-8
 Copyright: file inst/COPYRIGHTS
 License: MIT + file LICENSE
