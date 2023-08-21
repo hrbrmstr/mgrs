@@ -29,8 +29,8 @@ The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gitlab.com/hrbrmstr/mgrs}
-  \item Report bugs at \url{https://gitlab.com/hrbrmstr/mgrs/issues}
+  \item \url{https://github.com/hrbrmstr/mgrs}
+  \item Report bugs at \url{https://github.com/hrbrmstr/mgrs/issues}
 }
 
 }

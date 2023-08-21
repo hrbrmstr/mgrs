@@ -30,4 +30,4 @@ Imports:
     Rcpp,
     magrittr
 LinkingTo: Rcpp
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
