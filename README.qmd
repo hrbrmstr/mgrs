@@ -130,7 +130,7 @@ sample_dta |>
 
 ### Visual Verification
 
-```{r ex3, fig.retina=2, fig.width=10, fig.height=5}
+```{r ex3, fig.retina=2, fig.width=10, fig.height=5, dev="svg", dev.args=list(bg="transparent")}
 # precision == 1
 
 c(

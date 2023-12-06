@@ -257,7 +257,7 @@ mgrs_conus_state_centers |>
   theme_ft_rc(grid="XY")
 ```
 
-<img src="man/figures/README-ex3-1.png" width="960" />
+<img src="man/figures/README-ex3-1.svg" width="960" />
 
 ## mgrs Metrics
 
