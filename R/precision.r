@@ -49,7 +49,7 @@ mgrs_precision <- function(x) {
   y <- as.character(y)
   y <- ifelse(xchars==2, NA_integer_, .precision_map[y])
 
-  y <- data.frame(grid_ref = x, precision = unname(y), stringsAsFactors=FALSE)
+  y <- data.frame(grid_ref = x, precision = unname(y))
   class(y) <- c("tbl_df", "tbl", "data.frame")
 
   y

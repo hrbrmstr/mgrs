@@ -1,5 +1,7 @@
 ---
 format: gfm
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r pkg-knitr-opts, include=FALSE}
 hrbrpkghelpr::global_opts()
@@ -16,8 +18,6 @@ hrbrpkghelpr::yank_title_and_description()
 Essentially, a lightweight R wrapper around bits of <https://svn.osgeo.org/gdal/trunk/gdal/frmts/nitf/>.
 
 Decent reference on MGRS & UTM (Universal Transverse Mercator): <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
-
-The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 
 ![The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.](man/figures/mgrs-grid.png)
 
@@ -41,6 +41,8 @@ hrbrpkghelpr::install_block()
 
 ```{r vers, message=FALSE, warning=FALSE, error=FALSE, cache=FALSE}
 library(mgrs)
+library(sf)
+library(ggplot2)
 library(hrbrthemes)
 
 # current version
@@ -52,13 +54,31 @@ packageVersion("mgrs")
 ```{r ex1}
 mgrs_to_latlng("33UXP04")
 
+mgrs_to_latlng("33UXP04") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+
 latlng_to_mgrs(48.20535, 16.34593)
 
 mgrs_to_latlng("33UXP0500444996")
 
 latlng_to_mgrs(48.24948, 16.41449)
 
+mgrs_to_latlng("33UXP0500444996") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+
 mgrs_to_latlng("24XWT783908")
+
+mgrs_to_latlng("24XWT783908") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
 
 latlng_to_mgrs(83.62738, -32.66879)
 
@@ -66,9 +86,18 @@ utm_to_mgrs(48, "N", 377299, 1483035)
 
 mgrs_to_utm("48PUV7729883034")
 
+mgrs_to_utm("48PUV7729883034") |> 
+  get_crs()
+
 ups_to_mgrs("N", 2426773, 1530125)
 
 mgrs_to_ups("ZGC2677330125")
+
+mgrs_to_ups("ZGC2677330125") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = "+proj=ups"
+  )
 
 c(
   "4Q", "4QFJ", "4QFJ16", 
@@ -101,14 +130,16 @@ sample_dta |>
   dplyr::mutate(
     x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)
   ) |>
-  tidyr::unnest(x)
+  tidyr::unnest(x) |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
 ```
 
 ### Visual Verification
 
 ```{r ex3, fig.retina=2, fig.width=10, fig.height=5}
-library(ggplot2)
-
 # precision == 1
 
 c(
@@ -121,12 +152,23 @@ c(
   "10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
   "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
   "16TBQ64", "13TCH16"
-) -> mgrs_state_centers
+) -> mgrs_conus_state_centers
 
-mgrs_to_latlng(mgrs_state_centers) |>
-  ggplot(aes(lng, lat)) +
-  geom_point(shape=22, size=2, color="black", fill="white") +
-  coord_map("polyconic") +
+mgrs_conus_state_centers |> 
+  mgrs_to_latlng() |>
+  st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  ) |> 
+  ggplot() +
+  geom_sf(
+    shape = 22,
+    ize = 2, color = "black", 
+    fill = "white"
+  ) +
+  coord_sf(
+    crs = 5070
+  ) +
   theme_ft_rc(grid="XY")
 ```
 

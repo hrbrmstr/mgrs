@@ -157,20 +157,29 @@ sample_dta |>
   dplyr::mutate(
     x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)
   ) |>
-  tidyr::unnest(x)
-## # A tibble: 50 × 4
-##       id mgrs      lat    lng
-##    <int> <chr>   <dbl>  <dbl>
-##  1     1 16SEB20  32.5  -86.8
-##  2     2 09UXQ25  49.2 -127. 
-##  3     3 12SVC48  34.2 -112. 
-##  4     4 15SWU64  34.7  -92.3
-##  5     5 11SKA54  36.5 -120. 
-##  6     6 13SDC58  38.7 -106. 
-##  7     7 18TYM20  41.5  -72.4
-##  8     8 18SWH08  38.7  -75.0
-##  9     9 17RML38  27.8  -81.7
-## 10    10 17SKR77  32.2  -83.4
+  tidyr::unnest(x) |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+## Simple feature collection with 50 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -127.353 ymin: 27.84288 xmax: -69 ymax: 49.19105
+## Geodetic CRS:  WGS 84
+## # A tibble: 50 × 3
+##       id mgrs                geometry
+##  * <int> <chr>            <POINT [°]>
+##  1     1 16SEB20 (-86.78701 32.53717)
+##  2     2 09UXQ25  (-127.353 49.19105)
+##  3     3 12SVC48 (-111.6509 34.15921)
+##  4     4 15SWU64 (-92.34486 34.70027)
+##  5     5 11SKA54  (-119.7903 36.4727)
+##  6     6 13SDC58 (-105.5747 38.66717)
+##  7     7 18TYM20 (-72.36334 41.52143)
+##  8     8 18SWH08       (-75 38.66858)
+##  9     9 17RML38  (-81.7109 27.84288)
+## 10    10 17SKR77 (-83.44116 32.24313)
 ## # ℹ 40 more rows
 ```
 
@@ -178,6 +187,7 @@ sample_dta |>
 
 ``` r
 library(ggplot2)
+library(sf)
 
 # precision == 1
 
@@ -191,12 +201,23 @@ c(
   "10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
   "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
   "16TBQ64", "13TCH16"
-) -> mgrs_state_centers
+) -> mgrs_conus_state_centers
 
-mgrs_to_latlng(mgrs_state_centers) |>
-  ggplot(aes(lng, lat)) +
-  geom_point(shape=22, size=2, color="black", fill="white") +
-  coord_map("polyconic") +
+mgrs_conus_state_centers |> 
+  mgrs_to_latlng() |>
+  st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  ) |> 
+  ggplot() +
+  geom_sf(
+    shape = 22,
+    ize = 2, color = "black", 
+    fill = "white"
+  ) +
+  coord_sf(
+    crs = 5070
+  ) +
   theme_ft_rc(grid="XY")
 ```
 

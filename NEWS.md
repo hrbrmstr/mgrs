@@ -1,10 +1,18 @@
+0.2.4
+
+* Bump R dep to 4.x
+* Remove {magrittr} dep
+* Replace {testthat} with {tinytest}
+* Switch to Quarto for README
+* Update README examples to include {sf} work
+
 0.2.2
 
-* Fixes #5
+* Fixes GH #5
 
 0.2.0
 
-* Added `mgrs_area()` (completes #1)
+* Added `mgrs_area()` (completes GH #1)
 * Changed to MIT license
 * Added COPYRIGHTS info
 * Modified DESCRIPTION Description
@@ -12,7 +20,7 @@
 * Vectorized remaining data frame return functions
 * Added @gl-smith to DESCRIPTION
 * Added `include_mgrs_ref` logical parameter to `mgrs_to_latlng()`
-  to support #2
+  to support GH #2
 
 0.1.1
 
