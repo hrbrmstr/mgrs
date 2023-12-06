@@ -5,15 +5,10 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-95%25-lightgrey.svg)
-[![Linux build
-Status](https://travis-ci.org/hrbrmstr/mgrs.svg?branch=master)](https://travis-ci.org/hrbrmstr/mgrs)
-[![Windows build
-status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/mgrs?svg=true)](https://ci.appveyor.com/project/hrbrmstr/mgrs)
-[![Coverage
-Status](https://codecov.io/gh/hrbrmstr/mgrs/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/mgrs)
+%](https://img.shields.io/badge/Signed_Commits-5%25-lightgrey.svg)
+
 ![Minimal R
-Version](https://img.shields.io/badge/R%3E%3D-3.2.0-blue.svg)
+Version](https://img.shields.io/badge/R%3E%3D-4.0.0-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 # mgrs
@@ -39,38 +34,33 @@ Decent reference on MGRS & UTM (Universal Transverse Mercator):
 
 The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
 
-![The origin of the MGRS grid, in the Pacific. Honolulu is in
-4QFJ.](man/figures/mgrs-grid.png)
+<figure>
+<img src="man/figures/mgrs-grid.png"
+alt="The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ." />
+<figcaption aria-hidden="true">The origin of the MGRS grid, in the
+Pacific. Honolulu is in 4QFJ.</figcaption>
+</figure>
 
-[CC-BY-SA 3.0](https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png)
+[CC-BY-SA
+3.0](https://en.wikipedia.org/wiki/Military_Grid_Reference_System#/media/File:MGRSgridOriginSchemeAA.png)
 
 ## What’s Inside The Tin
 
 The following functions are implemented:
 
-  - `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
-  - `mgrs_precision`: Return MGRS grid reference precision (in meters)
-  - `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
-  - `mgrs_to_ups`: Convert MGRS to UPS
-  - `mgrs_to_utm`: Convert MGRS to UTM
-  - `ups_to_latlng`: Convert UPS to Latitude/Longitude
-  - `ups_to_mgrs`: Convert UPS to MGRS
-  - `utm_to_latlng`: Convert UTM to Latitude/Longitude
-  - `utm_to_mgrs`: Convert UTM to MGRS
+- `latlng_to_mgrs`: Convert latitude/longitude to MGRS string
+- `mgrs_precision`: Return MGRS grid reference precision (in meters)
+- `mgrs_to_latlng`: Convert an MGRS string to latitude/longitude
+- `mgrs_to_ups`: Convert MGRS to UPS
+- `mgrs_to_utm`: Convert MGRS to UTM
+- `ups_to_latlng`: Convert UPS to Latitude/Longitude
+- `ups_to_mgrs`: Convert UPS to MGRS
+- `utm_to_latlng`: Convert UTM to Latitude/Longitude
+- `utm_to_mgrs`: Convert UTM to MGRS
 
 ## Installation
 
 ``` r
-install.packages("mgrs", repos = "https://cinc.rud.is")
-# or
-remotes::install_git("https://git.rud.is/hrbrmstr/mgrs.git")
-# or
-remotes::install_git("https://git.sr.ht/~hrbrmstr/mgrs")
-# or
-remotes::install_gitlab("hrbrmstr/mgrs")
-# or
-remotes::install_bitbucket("hrbrmstr/mgrs")
-# or
 remotes::install_github("hrbrmstr/mgrs")
 ```
 
@@ -82,11 +72,10 @@ NOTE: To use the ‘remotes’ install options you will need to have the
 ``` r
 library(mgrs)
 library(hrbrthemes)
-library(tidyverse)
 
 # current version
 packageVersion("mgrs")
-## [1] '0.2.2'
+## [1] '0.2.4'
 ```
 
 ### Basics
@@ -127,10 +116,14 @@ mgrs_to_ups("ZGC2677330125")
 ##            mgrs hemisphere easting northing
 ## 1 ZGC2677330125          N 2426773  1530125
 
-grefs <- c("4Q", "4QFJ", "4QFJ16", "4QFJ1267", "4QFJ123678",
-           "4QFJ12346789", "4QFJ1234567890")
+c(
+  "4Q", "4QFJ", "4QFJ16", 
+  "4QFJ1267", "4QFJ123678",
+  "4QFJ12346789", "4QFJ1234567890"
+) -> grefs
+
 mgrs_precision(grefs)
-## # A tibble: 7 x 2
+## # A tibble: 7 × 2
 ##   grid_ref       precision
 ##   <chr>              <dbl>
 ## 1 4Q                    NA
@@ -142,26 +135,30 @@ mgrs_precision(grefs)
 ## 7 4QFJ1234567890         1
 ```
 
-### Better usage in the {tidyverse}
+### Usage in the {tidyverse}
 
 ``` r
 data.frame(
   id = 1:50, 
-  mgrs = c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
-"18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
-"16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
-"19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
-"15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
-"13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
-"10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
-"14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
-"16TBQ64", "13TCH16"),
-  stringsAsFactors = FALSE
+  mgrs = c(
+    "16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
+    "18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
+    "16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
+    "19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
+    "15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
+    "13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
+    "10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
+    "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
+    "16TBQ64", "13TCH16"
+    )
 ) -> sample_dta
 
-dplyr::mutate(sample_dta, x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)) %>% 
+sample_dta |> 
+  dplyr::mutate(
+    x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FALSE)
+  ) |>
   tidyr::unnest(x)
-## # A tibble: 50 x 4
+## # A tibble: 50 × 4
 ##       id mgrs      lat    lng
 ##    <int> <chr>   <dbl>  <dbl>
 ##  1     1 16SEB20  32.5  -86.8
@@ -174,28 +171,29 @@ dplyr::mutate(sample_dta, x = lapply(mgrs, mgrs_to_latlng, include_mgrs_ref = FA
 ##  8     8 18SWH08  38.7  -75.0
 ##  9     9 17RML38  27.8  -81.7
 ## 10    10 17SKR77  32.2  -83.4
-## # … with 40 more rows
+## # ℹ 40 more rows
 ```
 
 ### Visual Verification
 
 ``` r
-library(purrr)
 library(ggplot2)
 
 # precision == 1
 
-c("16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
-"18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
-"16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
-"19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
-"15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
-"13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
-"10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
-"14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
-"16TBQ64", "13TCH16") -> mgrs_state_centers
+c(
+  "16SEB20", "09UXQ25", "12SVC48", "15SWU64", "11SKA54", "13SDC58", 
+  "18TYM20", "18SWH08", "17RML38", "17SKR77", "09RYR61", "12TTP62", 
+  "16TBK93", "16TEK73", "15TVG64", "14SNH75", "16SFG94", "15RWP68", 
+  "19TEL05", "18SUJ54", "19TBG89", "16TFN87", "15TUM73", "16SBB31", 
+  "15SWC44", "12TXS28", "14TML57", "11SND12", "19TCJ00", "18SWK62", 
+  "13SDU11", "18TVN87", "17SQV22", "14TMT13", "17TLE65", "14SPE73", 
+  "10TGP36", "18TTL93", "19TCG20", "17SNT42", "14TMQ40", "16SEE44", 
+  "14RNV27", "12SVJ72", "18TXQ90", "17SQB46", "11TKN95", "17SNC25", 
+  "16TBQ64", "13TCH16"
+) -> mgrs_state_centers
 
-mgrs_to_latlng(mgrs_state_centers) %>% 
+mgrs_to_latlng(mgrs_state_centers) |>
   ggplot(aes(lng, lat)) +
   geom_point(shape=22, size=2, color="black", fill="white") +
   coord_map("polyconic") +
@@ -207,12 +205,14 @@ mgrs_to_latlng(mgrs_state_centers) %>%
 ## mgrs Metrics
 
 | Lang         | \# Files |  (%) |  LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
-| :----------- | -------: | ---: | ---: | ---: | ----------: | ---: | -------: | ---: |
-| C            |        5 | 0.26 | 1854 | 0.74 |         334 | 0.62 |      918 | 0.52 |
-| C++          |        2 | 0.11 |  342 | 0.14 |          63 | 0.12 |       99 | 0.06 |
-| C/C++ Header |        5 | 0.26 |  181 | 0.07 |          74 | 0.14 |      546 | 0.31 |
-| R            |        6 | 0.32 |   91 | 0.04 |          28 | 0.05 |      158 | 0.09 |
-| Rmd          |        1 | 0.05 |   54 | 0.02 |          39 | 0.07 |       40 | 0.02 |
+|:-------------|---------:|-----:|-----:|-----:|------------:|-----:|---------:|-----:|
+| C            |        5 | 0.16 | 1847 | 0.38 |         334 | 0.34 |      918 | 0.27 |
+| C++          |        2 | 0.06 |  346 | 0.07 |          64 | 0.07 |       99 | 0.03 |
+| C/C++ Header |        5 | 0.16 |  188 | 0.04 |          74 | 0.08 |      546 | 0.16 |
+| R            |        4 | 0.12 |   41 | 0.01 |          17 | 0.02 |      148 | 0.04 |
+| SUM          |       16 | 0.50 | 2422 | 0.50 |         489 | 0.50 |     1711 | 0.50 |
+
+{cloc} 📦 metrics for mgrs
 
 ## Code of Conduct
 

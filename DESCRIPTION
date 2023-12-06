@@ -1,8 +1,8 @@
 Package: mgrs
 Type: Package
 Title: Convert 'MGRS' ('Military Grid Reference System') Coordinates From/To Other Coordinate Systems
-Version: 0.2.3
-Date: 2022-12-20
+Version: 0.2.4
+Date: 2023-12-16
 Authors@R: c(
       person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
              comment = c(ORCID = "0000-0001-5670-2640")),
@@ -22,12 +22,10 @@ Encoding: UTF-8
 Copyright: file inst/COPYRIGHTS
 License: MIT + file LICENSE
 Suggests:
-    testthat,
-    covr
+    tinytest
 Depends:
-    R (>= 3.2.0)
+    R (>= 4.0.0)
 Imports:
-    Rcpp,
-    magrittr
+    Rcpp
 LinkingTo: Rcpp
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

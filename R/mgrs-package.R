@@ -22,7 +22,7 @@
 #' @md
 #' @name mgrs
 #' @docType package
-#' @author Bob Rudis (bob@@rud.is)
+#' @author boB Rudis (bob@@rud.is)
 #' @useDynLib mgrs, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 "_PACKAGE"

@@ -35,5 +35,5 @@ Useful links:
 
 }
 \author{
-Bob Rudis (bob@rud.is)
+boB Rudis (bob@rud.is)
 }

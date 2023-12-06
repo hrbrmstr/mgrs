@@ -12,3 +12,4 @@
 ^CONDUCT\.md$
 ^codecov\.yml$
 ^appveyor\.yml$
+^README\.qmd$
