@@ -32,8 +32,6 @@ Essentially, a lightweight R wrapper around bits of
 Decent reference on MGRS & UTM (Universal Transverse Mercator):
 <https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae>.
 
-The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ.
-
 <figure>
 <img src="man/figures/mgrs-grid.png"
 alt="The origin of the MGRS grid, in the Pacific. Honolulu is in 4QFJ." />
@@ -71,6 +69,8 @@ NOTE: To use the ‘remotes’ install options you will need to have the
 
 ``` r
 library(mgrs)
+library(sf)
+library(ggplot2)
 library(hrbrthemes)
 
 # current version
@@ -85,6 +85,19 @@ mgrs_to_latlng("33UXP04")
 ##      mgrs      lat      lng
 ## 1 33UXP04 48.20535 16.34593
 
+mgrs_to_latlng("33UXP04") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+## Simple feature collection with 1 feature and 1 field
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 16.34593 ymin: 48.20535 xmax: 16.34593 ymax: 48.20535
+## Geodetic CRS:  WGS 84
+##      mgrs                  geometry
+## 1 33UXP04 POINT (16.34593 48.20535)
+
 latlng_to_mgrs(48.20535, 16.34593)
 ## [1] "33UXP0000040000"
 
@@ -95,9 +108,35 @@ mgrs_to_latlng("33UXP0500444996")
 latlng_to_mgrs(48.24948, 16.41449)
 ## [1] "33UXP0500344996"
 
+mgrs_to_latlng("33UXP0500444996") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+## Simple feature collection with 1 feature and 1 field
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 16.41449 ymin: 48.24947 xmax: 16.41449 ymax: 48.24947
+## Geodetic CRS:  WGS 84
+##              mgrs                  geometry
+## 1 33UXP0500444996 POINT (16.41449 48.24947)
+
 mgrs_to_latlng("24XWT783908")
 ##          mgrs      lat       lng
 ## 1 24XWT783908 83.62738 -32.66879
+
+mgrs_to_latlng("24XWT783908") |> 
+  sf::st_as_sf(
+    coords = c("lng", "lat"),
+    crs = 4326
+  )
+## Simple feature collection with 1 feature and 1 field
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -32.66879 ymin: 83.62738 xmax: -32.66879 ymax: 83.62738
+## Geodetic CRS:  WGS 84
+##          mgrs                   geometry
+## 1 24XWT783908 POINT (-32.66879 83.62738)
 
 latlng_to_mgrs(83.62738, -32.66879)
 ## [1] "25XEN0410486507"
@@ -186,9 +225,6 @@ sample_dta |>
 ### Visual Verification
 
 ``` r
-library(ggplot2)
-library(sf)
-
 # precision == 1
 
 c(
@@ -227,11 +263,11 @@ mgrs_conus_state_centers |>
 
 | Lang         | \# Files |  (%) |  LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
 |:-------------|---------:|-----:|-----:|-----:|------------:|-----:|---------:|-----:|
-| C            |        5 | 0.16 | 1847 | 0.38 |         334 | 0.34 |      918 | 0.27 |
+| C            |        5 | 0.15 | 1847 | 0.38 |         334 | 0.34 |      918 | 0.26 |
 | C++          |        2 | 0.06 |  346 | 0.07 |          64 | 0.07 |       99 | 0.03 |
-| C/C++ Header |        5 | 0.16 |  188 | 0.04 |          74 | 0.08 |      546 | 0.16 |
-| R            |        4 | 0.12 |   41 | 0.01 |          17 | 0.02 |      148 | 0.04 |
-| SUM          |       16 | 0.50 | 2422 | 0.50 |         489 | 0.50 |     1711 | 0.50 |
+| C/C++ Header |        5 | 0.15 |  188 | 0.04 |          74 | 0.08 |      546 | 0.16 |
+| R            |        5 | 0.15 |   41 | 0.01 |          17 | 0.02 |      198 | 0.06 |
+| SUM          |       17 | 0.50 | 2422 | 0.50 |         489 | 0.50 |     1761 | 0.50 |
 
 {cloc} 📦 metrics for mgrs
 

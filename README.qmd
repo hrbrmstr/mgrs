@@ -86,18 +86,9 @@ utm_to_mgrs(48, "N", 377299, 1483035)
 
 mgrs_to_utm("48PUV7729883034")
 
-mgrs_to_utm("48PUV7729883034") |> 
-  get_crs()
-
 ups_to_mgrs("N", 2426773, 1530125)
 
 mgrs_to_ups("ZGC2677330125")
-
-mgrs_to_ups("ZGC2677330125") |> 
-  sf::st_as_sf(
-    coords = c("lng", "lat"),
-    crs = "+proj=ups"
-  )
 
 c(
   "4Q", "4QFJ", "4QFJ16", 
