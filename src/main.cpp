@@ -162,7 +162,7 @@ DataFrame mgrs_to_utm(std::vector < std::string > mgrs_string, bool include_mgrs
     ret = Convert_MGRS_To_UTM((char *)mgrs_string[i].c_str(), &zone, h_buf, &easting, &northing);
 
     if (ret != MGRS_NO_ERROR) {
-      Rcpp::warning("Error converting MGRS to UGM");
+      Rcpp::warning("Error converting MGRS to UTM");
       zonev[i] = NA_INTEGER;
       hemispherev[i] = NA_STRING;
       eastingv[i] = NA_REAL;
@@ -257,7 +257,7 @@ DataFrame mgrs_to_ups(std::vector < std::string > mgrs_string, bool include_mgrs
     ret = Convert_MGRS_To_UPS((char *)mgrs_string[i].c_str(), h_buf, &easting, &northing);
 
     if (ret != MGRS_NO_ERROR) {
-      Rcpp::warning("Error converting MGRS to UGM");
+      Rcpp::warning("Error converting MGRS to UTM");
       hemispherev[i] = NA_STRING;
       eastingv[i] = NA_REAL;
       northingv[i] = NA_REAL;
