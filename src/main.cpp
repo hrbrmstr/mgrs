@@ -96,7 +96,7 @@ String latlng_to_mgrs(double latitude, double longitude,
   ret = Convert_Geodetic_To_MGRS(latitude, longitude, precision, buf);
 
   if (ret != MGRS_NO_ERROR) {
-    Rcpp::warning("Error conveting latitude/longitudfe to MGRS");
+    Rcpp::warning("Error converting latitude/longitude to MGRS");
     return(NA_STRING);
   } else {
     return(std::string(buf));
